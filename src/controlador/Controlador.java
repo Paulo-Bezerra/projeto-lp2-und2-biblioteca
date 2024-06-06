@@ -6,23 +6,21 @@ import servico.Operacoes;
 import java.util.ArrayList;
 
 public class Controlador {
-    private Operacoes op;
+  private Operacoes op;
 
-    public Controlador() {
-        op = new Operacoes();
+  public Controlador() {
+    op = new Operacoes();
+  }
+
+  public boolean adicionarLivro(LivroDTO livroDTO) {
+    if (!livroDTO.validarLivro()) {
+      return false;
     }
+    return op.adicionarLivro(livroDTO);
+  }
 
-    public boolean adicionarLivro(LivroDTO livroDTO) {
-        if (!livroDTO.validarLivro()) {
-            return false;
-        }
-        return op.adicionarLivro(livroDTO);
-    }
-
-    public ArrayList<LivroDTO> buscarLivroPorAutor(String autor) {
-        return op.buscarLivroPorAutor(autor);
-    }
-
-
+  public ArrayList<LivroDTO> buscarLivroPorAutor(String autor) {
+    return op.buscarLivroPorAutor(autor);
+  }
 
 }
