@@ -10,6 +10,11 @@ public class Estudante extends Pessoa{
         this.curso = curso;
     }
 
+    public Estudante(Estudante estudante) {
+        super(estudante.getNome(), estudante.getCpf(), estudante.getMatricula(), estudante.getDataNascimento());
+        this.curso = estudante.getCurso();
+    }
+
     public String getCurso() {
         return curso;
     }
