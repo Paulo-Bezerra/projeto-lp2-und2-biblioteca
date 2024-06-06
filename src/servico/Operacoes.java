@@ -113,15 +113,4 @@ public class Operacoes implements IOperacoesLivro {
         }
         return listaLivrosDTO;
     }
-
-    /*
-    private ArrayList<LivroDTO> converterListaDeLivrosParaDTO(HashMap<Livro, Integer> livros){
-        ArrayList<LivroDTO> livrosDTO = new ArrayList<LivroDTO>();
-
-        for(Livro livro : livros.keySet()) {
-            livrosDTO.add(new LivroDTO(livro, livros.get(livro)));
-        }
-        return livrosDTO;
-    }
-    */
 }
