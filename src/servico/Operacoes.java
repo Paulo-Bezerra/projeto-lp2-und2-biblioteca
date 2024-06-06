@@ -15,6 +15,7 @@ public class Operacoes implements IOperacoesLivro {
         bancoDAO = BancoDAO.getInstance();
     }
 
+    // Operações com livros.
     @Override
     public boolean adicionarLivro(LivroDTO livroDTO) {
         return this.adicionarLivro(livroDTO.getTitulo(), livroDTO.getAutor(), livroDTO.getAssunto(), livroDTO.getAno(), livroDTO.getEstoque());
@@ -113,4 +114,7 @@ public class Operacoes implements IOperacoesLivro {
         }
         return listaLivrosDTO;
     }
+
+    // Operações usuários
+
 }
