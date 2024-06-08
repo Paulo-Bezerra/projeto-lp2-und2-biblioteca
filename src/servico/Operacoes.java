@@ -1,6 +1,7 @@
 package servico;
 
 import dao.BancoDAO;
+import dto.EstudanteDTO;
 import dto.LivroDTO;
 import modelo.Livro;
 
@@ -8,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Operacoes implements IOperacoesLivro {
+public class Operacoes implements IOperacoesLivro, IOperacoesUsuario, IOperacoesEstudante, IOperacoesProfessor, IOperacoesBibliotecario, IOperacoesEmprestimo {
     private final BancoDAO bancoDAO;
 
     public Operacoes() {
@@ -115,6 +116,22 @@ public class Operacoes implements IOperacoesLivro {
         return listaLivrosDTO;
     }
 
-    // Operações usuários
+
+    // Operações com os estudantes.
+
+    @Override
+    public boolean adicionarEstudante(String matricula) {
+        return false;
+    }
+
+    @Override
+    public boolean removerEstudante(String matricula) {
+        return false;
+    }
+
+    @Override
+    public List<EstudanteDTO> listarEstudantes() {
+        return List.of();
+    }
 
 }
