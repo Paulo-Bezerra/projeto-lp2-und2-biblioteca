@@ -13,14 +13,14 @@ public class Controlador {
   }
 
   public boolean adicionarLivro(LivroDTO livroDTO) {
-    if (!livroDTO.validarLivro()) {
+    if (!livroDTO.validar()) {
       return false;
     }
     return op.adicionarLivro(livroDTO);
   }
 
   public boolean removerLivro(LivroDTO livroDTO) {
-    if (!livroDTO.validarLivro()) {
+    if (!livroDTO.validar()) {
       return false;
     }
     return op.removerLivro(livroDTO);
