@@ -1,25 +1,25 @@
 package dto;
 
-public class CredenciasDTO {
-  private String nome;
+public class CredenciasDTO implements IValidacaoDeDTO {
+  private String login;
   private String senha;
 
-  public CredenciasDTO(String nome, String senha) {
-    this.nome = nome;
+  public CredenciasDTO(String login, String senha) {
+    this.login = login;
     this.senha = senha;
   }
 
   public CredenciasDTO(CredenciasDTO credenciasDTO) {
-    this.nome = credenciasDTO.getNome();
+    this.login = credenciasDTO.getLogin();
     this.senha = credenciasDTO.getSenha();
   }
 
-  public String getNome() {
-    return nome;
+  public String getLogin() {
+    return login;
   }
 
-  public void setNome(String nome) {
-    this.nome = nome;
+  public void setLogin(String login) {
+    this.login = login;
   }
 
   public String getSenha() {
@@ -28,5 +28,19 @@ public class CredenciasDTO {
 
   public void setSenha(String senha) {
     this.senha = senha;
+  }
+
+  @Override
+  public boolean validar() {
+    return validarStrings(login, senha);
+  }
+
+  protected boolean validarStrings(String... entradas) {
+    for (String entrada : entradas) {
+      if (entrada.isEmpty() || entrada.equals(" ")) {
+        return false;
+      }
+    }
+    return true;
   }
 }

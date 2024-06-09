@@ -2,17 +2,20 @@ package dto;
 
 import modelo.Livro;
 
-public class LivroDTO {
+public class LivroDTO implements IValidacaoDeDTO {
   private String titulo;
   private String autor;
+  private String isbn;
   private String assunto;
   private int ano;
   private int estoque;
   private int qtdDisponivel;
 
-  public LivroDTO(String titulo, String autor, String assunto, int ano, int estoque, int qtdDisponivel) {
+
+  public LivroDTO(String titulo, String autor, String isbn, String assunto, int ano, int estoque, int qtdDisponivel) {
     this.titulo = titulo;
     this.autor = autor;
+    this.isbn = isbn;
     this.assunto = assunto;
     this.ano = ano;
     this.estoque = estoque;
@@ -22,10 +25,21 @@ public class LivroDTO {
   public LivroDTO(Livro livro, int qtdDisponivel) {
     this.titulo = livro.getTitulo();
     this.autor = livro.getAutor();
+    this.isbn = livro.getIsbn();
     this.assunto = livro.getAssunto();
     this.ano = livro.getAno();
     this.estoque = livro.getEstoque();
     this.qtdDisponivel = qtdDisponivel;
+  }
+
+  public LivroDTO(LivroDTO livroDTO) {
+    this.titulo = livroDTO.getTitulo();
+    this.autor = livroDTO.getAutor();
+    this.isbn = livroDTO.getIsbn();
+    this.assunto = livroDTO.getAssunto();
+    this.ano = livroDTO.getAno();
+    this.estoque = livroDTO.getEstoque();
+    this.qtdDisponivel = livroDTO.getQtdDisponivel();
   }
 
   public String getTitulo() {
@@ -42,6 +56,14 @@ public class LivroDTO {
 
   public void setAutor(String autor) {
     this.autor = autor;
+  }
+
+  public String getIsbn() {
+    return isbn;
+  }
+
+  public void setIsbn(String isbn) {
+    this.isbn = isbn;
   }
 
   public String getAssunto() {
@@ -76,8 +98,8 @@ public class LivroDTO {
     this.qtdDisponivel = qtdDisponivel;
   }
 
-  public boolean validarLivro() {
-    return (validarStrings(titulo, autor, assunto)
+  public boolean validar() {
+    return (validarStrings(titulo, autor, isbn, assunto)
         && validarInteiros(ano, estoque, qtdDisponivel));
   }
 
@@ -104,6 +126,7 @@ public class LivroDTO {
     return "{" +
         "Título='" + titulo + "'" +
         ", Autor='" + autor + "'" +
+        ", ISBN='" + isbn + "'" +
         ", Assunto='" + assunto + "'" +
         ", Ano=" + ano +
         ", Cadastrados=" + estoque +

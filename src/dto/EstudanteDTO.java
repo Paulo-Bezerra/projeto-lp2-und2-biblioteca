@@ -3,59 +3,28 @@ package dto;
 
 import modelo.Estudante;
 
-public class EstudanteDTO {
-  private String nome;
-  private String cpf;
-  private String matricula;
-  private String curso;
-  private String dataNascimento;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.regex.Pattern;
 
-  public EstudanteDTO(String nome, String cpf, String matricula, String curso, String dataNascimento) {
-    this.nome = nome;
-    this.cpf = cpf;
-    this.matricula = matricula;
+public class EstudanteDTO extends UsuarioDTO {
+  private String curso;
+
+  public EstudanteDTO(String nome, String cpf, String matricula, String dataNascimento, String curso) {
+    super(nome, cpf, matricula, dataNascimento);
     this.curso = curso;
-    this.dataNascimento = dataNascimento;
   }
 
   public EstudanteDTO(EstudanteDTO estudanteDTO) {
-    this.nome = estudanteDTO.getNome();
-    this.cpf = estudanteDTO.getCpf();
-    this.matricula = estudanteDTO.getMatricula();
+    super(estudanteDTO);
     this.curso = estudanteDTO.getCurso();
-    this.dataNascimento = estudanteDTO.getDataNascimento();
+
   }
 
   public EstudanteDTO(Estudante estudante) {
-    this.nome = estudante.getNome();
-    this.cpf = estudante.getMatricula();
-    this.matricula = estudante.getCpf();
+    super(estudante);
     this.curso = estudante.getCurso();
-    this.dataNascimento = estudante.getDataNascimento().toString();
-  }
-
-  public String getNome() {
-    return nome;
-  }
-
-  public void setNome(String nome) {
-    this.nome = nome;
-  }
-
-  public String getCpf() {
-    return cpf;
-  }
-
-  public void setCpf(String cpf) {
-    this.cpf = cpf;
-  }
-
-  public String getMatricula() {
-    return matricula;
-  }
-
-  public void setMatricula(String matricula) {
-    this.matricula = matricula;
   }
 
   public String getCurso() {
@@ -66,11 +35,34 @@ public class EstudanteDTO {
     this.curso = curso;
   }
 
-  public String getDataNascimento() {
-    return dataNascimento;
+  @Override
+  public boolean validar() {
+    return (validarStrings(this.getNome(), this.getMatricula(), this.getCurso()) && validarCPF(this.getCpf()) && validarData(this.getDataNascimento()));
   }
 
-  public void setDataNascimento(String dataNascimento) {
-    this.dataNascimento = dataNascimento;
+  // Método para validar o formato do cpf (apenas dígitos) usando regex
+  private static boolean validarCPF(String cpf) {
+    return (cpf.length() == 11 && cpf.matches("^\\d{11}$"));
+  }
+
+  // Método para validar a data usando LocalDate
+  private static boolean validarData(String data) {
+    if (!validarFormatoData(data)) {
+      return false;
+    }
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    try {
+      LocalDate.parse(data, formatter);
+    } catch (DateTimeParseException e) {
+      return false;
+    }
+    return true;
+  }
+
+  // Método para validar o formato da data usando regex
+  private static boolean validarFormatoData(String data) {
+    Pattern pattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$");
+    return pattern.matcher(data).matches();
   }
 }

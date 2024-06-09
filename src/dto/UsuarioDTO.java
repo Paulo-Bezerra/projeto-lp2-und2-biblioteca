@@ -2,10 +2,9 @@ package dto;
 
 import modelo.Usuario;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class UsuarioDTO {
+public abstract class UsuarioDTO implements IValidacaoDeDTO {
   private String nome;
   private String cpf;
   private String matricula;
@@ -68,5 +67,14 @@ public class UsuarioDTO {
 
   public DateTimeFormatter getFormato() {
     return formato;
+  }
+
+  protected boolean validarStrings(String... entradas) {
+    for (String entrada : entradas) {
+      if (entrada.isEmpty() || entrada.equals(" ")) {
+        return false;
+      }
+    }
+    return true;
   }
 }
