@@ -1,0 +1,34 @@
+1. Gerenciar usuários.
+    1. Cadastrar usuário.
+        1. Cadastrar estudante.
+        2. Cadastrar professor.
+        3. Cadastrar bibliotecário.
+    2. Remover usuário.
+    3. Consultar usuários.
+        1. Listar todos os usuários.
+        2. Pesquisar usuário.
+        3. Verificar situação de usuário.
+        4. Listar empréstimos ativos de usuário.
+        5. Voltar.
+    4. Voltar.
+
+2. Gerenciar livros.
+    1. Cadastrar livro.
+    2. Remover livro.
+    3. Consultar livros.
+        1. Listar todos os livros.
+        2. Pesquisar livro.
+        3. Voltar.
+    4. Voltar.
+
+3. Gerenciar empréstimos.
+    1. Registrar empréstimo.
+    2. Registrar devolução.
+    3. Consultar empréstimos.
+        1. Listar todos os empréstimos.
+        2. Listar devoluções em atraso.
+        3. Voltar.
+    4. Voltar.
+
+4. Sair.
+

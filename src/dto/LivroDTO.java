@@ -124,13 +124,13 @@ public class LivroDTO implements IValidacaoDeDTO {
   @Override
   public String toString() {
     return "{" +
-        "Título='" + titulo + "'" +
-        ", Autor='" + autor + "'" +
-        ", ISBN='" + isbn + "'" +
-        ", Assunto='" + assunto + "'" +
-        ", Ano=" + ano +
-        ", Cadastrados=" + estoque +
-        ", Disponíveis=" + qtdDisponivel +
+        "Título: '" + titulo + "'" +
+        ", Autor: '" + autor + "'" +
+        ", ISBN: '" + isbn + "'" +
+        ", Assunto: '" + assunto + "'" +
+        ", Ano: " + ano +
+        ", Cadastrados: " + estoque +
+        ", Disponíveis: " + qtdDisponivel +
         "}";
   }
 }

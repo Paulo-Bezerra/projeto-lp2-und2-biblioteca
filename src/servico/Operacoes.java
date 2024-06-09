@@ -1,9 +1,11 @@
 package servico;
 
 import dao.BancoDAO;
+import dto.BibliotecarioDTO;
 import dto.EstudanteDTO;
 import dto.LivroDTO;
-import modelo.Livro;
+import dto.ProfessorDTO;
+import modelo.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -120,8 +122,12 @@ public class Operacoes implements IOperacoesLivro, IOperacoesUsuario, IOperacoes
     // Operações com os estudantes.
 
     @Override
-    public boolean adicionarEstudante(String matricula) {
-        return false;
+    public boolean adicionarEstudante(EstudanteDTO estudanteDTO) {
+        return adicionarEstudante(new Estudante(estudanteDTO));
+    }
+
+    private boolean adicionarEstudante(Estudante estudante) {
+        return bancoDAO.getUR().adicionarUsuario(estudante);
     }
 
     @Override
@@ -133,5 +139,26 @@ public class Operacoes implements IOperacoesLivro, IOperacoesUsuario, IOperacoes
     public List<EstudanteDTO> listarEstudantes() {
         return List.of();
     }
+
+    // Operações com os professores.
+    @Override
+    public boolean adicionarProfessor(ProfessorDTO professorDTO) {
+        return adicionarProfessor(new Professor(professorDTO));
+    }
+
+    private boolean adicionarProfessor(Professor professor) {
+        return bancoDAO.getUR().adicionarUsuario(professor);
+    }
+
+    // Operações com os professores.
+    @Override
+    public boolean adicionarBibliotecario(BibliotecarioDTO bibliotecarioDTO) {
+        return adicionarBibliotecario(new Bibliotecario(bibliotecarioDTO));
+    }
+
+    private boolean adicionarBibliotecario(Bibliotecario bibliotecario) {
+        return bancoDAO.getUR().adicionarUsuario(bibliotecario);
+    }
+
 
 }

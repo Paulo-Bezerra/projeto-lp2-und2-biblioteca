@@ -1,5 +1,8 @@
 package modelo;
 
+import dto.BibliotecarioDTO;
+import dto.CredenciasDTO;
+
 import java.time.LocalDate;
 
 public class Bibliotecario extends Usuario {
@@ -15,9 +18,16 @@ public class Bibliotecario extends Usuario {
     this.credencias = bibliotecario.getCredencias();
   }
 
+  public Bibliotecario(BibliotecarioDTO bibliotecarioDTO) {
+    super(bibliotecarioDTO);
+    this.credencias = new Credencias(bibliotecarioDTO.getLogin(), bibliotecarioDTO.getSenha());
+  }
+
+
   public Credencias getCredencias() {
     return credencias;
   }
+
   public void setCredencias(Credencias credencias) {
     this.credencias = credencias;
   }

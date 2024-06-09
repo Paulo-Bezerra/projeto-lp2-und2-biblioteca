@@ -9,20 +9,24 @@ import java.util.regex.Pattern;
 
 public class BibliotecarioDTO extends UsuarioDTO {
   private String login;
+  private String senha;
 
-  public BibliotecarioDTO(String nome, String cpf, String matricula, String dataNascimento, String login) {
+  public BibliotecarioDTO(String nome, String cpf, String matricula, String dataNascimento, String login, String senha) {
     super(nome, cpf, matricula, dataNascimento);
     this.login = login;
+    this.senha = senha;
   }
 
   public BibliotecarioDTO(BibliotecarioDTO bibliotecarioDTO) {
     super(bibliotecarioDTO);
-    this.login = bibliotecarioDTO.login;
+    this.login = bibliotecarioDTO.getLogin();
+    this.senha = bibliotecarioDTO.getSenha();
   }
 
   public BibliotecarioDTO(Bibliotecario bibliotecario) {
     super(bibliotecario);
     this.login = bibliotecario.getCredencias().getLogin();
+    this.senha = bibliotecario.getCredencias().getSenha();
   }
 
 
@@ -33,9 +37,17 @@ public class BibliotecarioDTO extends UsuarioDTO {
     this.login = login;
   }
 
+  public String getSenha() {
+    return senha;
+  }
+
+  public void setSenha(String senha) {
+    this.senha = senha;
+  }
+
   @Override
   public boolean validar() {
-    return (validarStrings(this.getNome(), this.getMatricula(), this.getLogin()) && validarCPF(this.getCpf()) && validarData(this.getDataNascimento()));
+    return (validarStrings(this.getNome(), this.getMatricula(), this.getLogin(), this.getSenha()) && validarCPF(this.getCpf()) && validarData(this.getDataNascimento()));
   }
 
   // Método para validar o formato do cpf (apenas dígitos) usando regex

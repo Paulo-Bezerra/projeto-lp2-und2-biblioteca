@@ -1,6 +1,6 @@
 package controlador;
 
-import dto.LivroDTO;
+import dto.*;
 import servico.Operacoes;
 
 import java.util.List;
@@ -52,5 +52,26 @@ public class Controlador {
 
   public List<LivroDTO> buscarLivrosPorEstoqueDisponivel(int estoqueDisponivel) {
     return op.buscarLivrosPorEstoqueDisponivel(estoqueDisponivel);
+  }
+
+  public boolean adicionarEstudante(EstudanteDTO estudanteDTO) {
+    if (!estudanteDTO.validar()) {
+      return false;
+    }
+    return op.adicionarEstudante(estudanteDTO);
+  }
+
+  public boolean adicionarProfessor(ProfessorDTO professorDTO) {
+    if (!professorDTO.validar()) {
+      return false;
+    }
+    return op.adicionarProfessor(professorDTO);
+  }
+
+  public boolean adicionarBibliotecario(BibliotecarioDTO bibliotecarioDTO) {
+    if (!bibliotecarioDTO.validar()) {
+      return false;
+    }
+    return op.adicionarBibliotecario(bibliotecarioDTO);
   }
 }

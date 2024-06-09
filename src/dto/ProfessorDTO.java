@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 public class ProfessorDTO extends UsuarioDTO {
   private String departamento;
 
-  public ProfessorDTO(String nome, String cpf, String matricula, String dataNascimento) {
+  public ProfessorDTO(String nome, String cpf, String matricula, String dataNascimento, String departamento) {
     super(nome, cpf, matricula, dataNascimento);
     this.departamento = departamento;
   }
@@ -63,5 +63,16 @@ public class ProfessorDTO extends UsuarioDTO {
   private static boolean validarFormatoData(String data) {
     Pattern pattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$");
     return pattern.matcher(data).matches();
+  }
+
+  @Override
+  public String toString() {
+    return "{" +
+           "Nome: '" + this.getNome() + "'" +
+           ", CPF: '" + this.getCpf() + "'" +
+           ", Matrícula: '" + this.getMatricula() + "'" +
+           ", Data de nascimento: '" + this.getDataNascimento() + "'" +
+           ", Departamento: " + this.getDepartamento() +
+           "}";
   }
 }
