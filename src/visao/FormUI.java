@@ -39,4 +39,9 @@ public class FormUI {
     senha = Leitura.leStr("Informe a senha: ");
     return new BibliotecarioDTO(nome, cpf, matricula, dataNascimento, login, senha);
   }
+
+  public static String formRemoverUsuarioPorMatricula() {
+    System.out.println("Remover usuário.");
+    return Leitura.leStr("Informe a matricula: ");
+  }
 }

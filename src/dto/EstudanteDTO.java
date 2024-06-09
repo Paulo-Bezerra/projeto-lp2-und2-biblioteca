@@ -68,7 +68,7 @@ public class EstudanteDTO extends UsuarioDTO {
 
   @Override
   public String toString() {
-    return "{" +
+    return "Estudante: {" +
            "Nome: '" + this.getNome() + "'" +
            ", CPF: '" + this.getCpf() + "'" +
            ", Matrícula: '" + this.getMatricula() + "'" +

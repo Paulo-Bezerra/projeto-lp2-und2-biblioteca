@@ -75,4 +75,15 @@ public class BibliotecarioDTO extends UsuarioDTO {
     Pattern pattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$");
     return pattern.matcher(data).matches();
   }
+
+  @Override
+  public String toString() {
+    return "Bibliotecário: {" +
+           "Nome: '" + this.getNome() + "'" +
+           ", CPF: '" + this.getCpf() + "'" +
+           ", Matrícula: '" + this.getMatricula() + "'" +
+           ", Data de nascimento: '" + this.getDataNascimento() + "'" +
+           ", Login: " + this.getLogin() +
+           "}";
+  }
 }

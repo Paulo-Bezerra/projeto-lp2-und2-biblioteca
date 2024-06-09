@@ -74,4 +74,24 @@ public class Controlador {
     }
     return op.adicionarBibliotecario(bibliotecarioDTO);
   }
+
+  public String buscarUsuarioPorMatricula(String matricula) {
+    if (matricula == null) {
+      return null;
+    }
+    if (matricula.isEmpty() || matricula.equals(" "))  {
+      return null;
+    }
+    return op.buscarUsuarioPorMatricula(matricula);
+  }
+
+  public boolean removerUsuarioPorMatricula(String matricula) {
+    if (matricula == null) {
+      return false;
+    }
+    if (matricula.isEmpty() || matricula.equals(" "))  {
+      return false;
+    }
+    return op.removerUsuarioPorMatricula(matricula);
+  }
 }

@@ -19,7 +19,7 @@ public class UsuarioRepositorio {
         return UR.remove(usuario);
     }
 
-    public HashSet<Usuario> getUR() {
+    public HashSet<Usuario> getUsuarios() {
         return new HashSet<Usuario>(UR);
     }
 

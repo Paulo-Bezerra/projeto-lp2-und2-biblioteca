@@ -1,9 +1,13 @@
-1. Gerenciar usuários.
-    1. Cadastrar usuário.
-        1. Cadastrar estudante.
-        2. Cadastrar professor.
-        3. Cadastrar bibliotecário.
+1. Gerenciar usuários.'
+    1. Cadastrar usuário.'
+        1. Cadastrar estudante.'
+        2. Cadastrar professor.'
+        3. Cadastrar bibliotecário.'
+        4. Voltar.
     2. Remover usuário.
+        1. Remover usuário (necessário informar a matrícula).
+        2. Consultar matrícula do usuário.
+        3. Voltar.
     3. Consultar usuários.
         1. Listar todos os usuários.
         2. Pesquisar usuário.

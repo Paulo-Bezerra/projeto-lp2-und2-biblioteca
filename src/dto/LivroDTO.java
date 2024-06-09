@@ -123,7 +123,7 @@ public class LivroDTO implements IValidacaoDeDTO {
 
   @Override
   public String toString() {
-    return "{" +
+    return "Livro: {" +
         "Título: '" + titulo + "'" +
         ", Autor: '" + autor + "'" +
         ", ISBN: '" + isbn + "'" +

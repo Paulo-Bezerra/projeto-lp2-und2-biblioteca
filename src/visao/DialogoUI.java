@@ -3,7 +3,7 @@ package visao;
 import util.Leitura;
 
 public class DialogoUI {
-  public static int dialogoConfirmarCadastro(String msg) {
+  public static int dialogoConfirmar(String msg) {
     int opcao = 0;
     while (true) {
       opcao = Leitura.LeInt(msg);

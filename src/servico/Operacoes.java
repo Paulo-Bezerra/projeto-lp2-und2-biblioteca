@@ -1,14 +1,12 @@
 package servico;
 
 import dao.BancoDAO;
-import dto.BibliotecarioDTO;
-import dto.EstudanteDTO;
-import dto.LivroDTO;
-import dto.ProfessorDTO;
+import dto.*;
 import modelo.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class Operacoes implements IOperacoesLivro, IOperacoesUsuario, IOperacoesEstudante, IOperacoesProfessor, IOperacoesBibliotecario, IOperacoesEmprestimo {
@@ -118,6 +116,36 @@ public class Operacoes implements IOperacoesLivro, IOperacoesUsuario, IOperacoes
         return listaLivrosDTO;
     }
 
+    // Operações com os usuário.
+    @Override
+    public String buscarUsuarioPorMatricula(String matricula) {
+        HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getMatricula().equals(matricula)) {
+                if (usuario instanceof Estudante) {
+                    return new EstudanteDTO((Estudante) usuario).toString();
+                }
+                if (usuario instanceof Professor) {
+                    return new ProfessorDTO((Professor) usuario).toString();
+                }
+                if (usuario instanceof Bibliotecario) {
+                    return new BibliotecarioDTO((Bibliotecario) usuario).toString();
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean removerUsuarioPorMatricula(String matricula) {
+        HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getMatricula().equals(matricula)) {
+                return bancoDAO.getUR().removerUsuario(usuario);
+            }
+        }
+        return false;
+    }
 
     // Operações com os estudantes.
 
@@ -128,11 +156,6 @@ public class Operacoes implements IOperacoesLivro, IOperacoesUsuario, IOperacoes
 
     private boolean adicionarEstudante(Estudante estudante) {
         return bancoDAO.getUR().adicionarUsuario(estudante);
-    }
-
-    @Override
-    public boolean removerEstudante(String matricula) {
-        return false;
     }
 
     @Override
@@ -159,6 +182,4 @@ public class Operacoes implements IOperacoesLivro, IOperacoesUsuario, IOperacoes
     private boolean adicionarBibliotecario(Bibliotecario bibliotecario) {
         return bancoDAO.getUR().adicionarUsuario(bibliotecario);
     }
-
-
 }
