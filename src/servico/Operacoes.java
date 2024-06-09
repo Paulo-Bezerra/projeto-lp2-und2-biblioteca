@@ -19,11 +19,11 @@ public class Operacoes implements IOperacoesLivro, IOperacoesUsuario, IOperacoes
     // Operações com livros.
     @Override
     public boolean adicionarLivro(LivroDTO livroDTO) {
-        return this.adicionarLivro(livroDTO.getTitulo(), livroDTO.getAutor(), livroDTO.getAssunto(), livroDTO.getAno(), livroDTO.getEstoque());
+        return this.adicionarLivro(new Livro(livroDTO));
     }
 
-    private boolean adicionarLivro(String titulo, String autor, String assunto, int ano, int estoque) {
-        return bancoDAO.getLR().adicionarLivro(new Livro(titulo, autor, assunto, ano, estoque));
+    private boolean adicionarLivro(Livro livro) {
+        return bancoDAO.getLR().adicionarLivro(livro);
     }
 
     @Override
