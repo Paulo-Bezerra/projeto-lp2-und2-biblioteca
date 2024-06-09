@@ -5,13 +5,15 @@ import dto.LivroDTO;
 public class Livro {
   private String titulo;
   private String autor;
+  private String isbn;
   private String assunto;
   private int ano;
   private int estoque;
 
-  public Livro(String titulo, String autor, String assunto, int ano, int estoque) {
+  public Livro(String titulo, String autor, String isbn, String assunto, int ano, int estoque) {
     this.titulo = titulo;
     this.autor = autor;
+    this.isbn = isbn;
     this.assunto = assunto;
     this.ano = ano;
     this.estoque = estoque;
@@ -20,6 +22,7 @@ public class Livro {
   public Livro(Livro livro) {
     this.titulo = livro.getTitulo();
     this.autor = livro.getAutor();
+    this.isbn = livro.getIsbn();
     this.assunto = livro.getAssunto();
     this.ano = livro.getAno();
     this.estoque = livro.getEstoque();
@@ -28,6 +31,7 @@ public class Livro {
   public Livro(LivroDTO livroDTO) {
     this.titulo = livroDTO.getTitulo();
     this.autor = livroDTO.getAutor();
+    this.isbn = livroDTO.getIsbn();
     this.assunto = livroDTO.getAssunto();
     this.ano = livroDTO.getAno();
     this.estoque = livroDTO.getEstoque();
@@ -47,6 +51,14 @@ public class Livro {
 
   public void setAutor(String autor) {
     this.autor = autor;
+  }
+
+  public String getIsbn() {
+    return isbn;
+  }
+
+  public void setIsbn(String isbn) {
+    this.isbn = isbn;
   }
 
   public String getAssunto() {

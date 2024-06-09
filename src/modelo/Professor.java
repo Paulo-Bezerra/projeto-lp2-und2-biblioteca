@@ -1,5 +1,7 @@
 package modelo;
 
+import dto.ProfessorDTO;
+
 import java.time.LocalDate;
 
 public class Professor extends Usuario {
@@ -7,11 +9,17 @@ public class Professor extends Usuario {
 
   public Professor(String nome, String cpf, String matricula, LocalDate dataNascimento, String departamento) {
     super(nome, cpf, matricula, dataNascimento);
+    this.departamento = departamento;
   }
 
   public Professor(Professor professor) {
-    super(professor.getNome(), professor.getCpf(), professor.getMatricula(), professor.getDataNascimento());
+    super(professor);
     this.departamento = professor.getDepartamento();
+  }
+
+  public Professor(ProfessorDTO professorDTO) {
+    super(professorDTO);
+    this.departamento = professorDTO.getDepartamento();
   }
 
   public String getDepartamento() {

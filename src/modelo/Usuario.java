@@ -1,5 +1,7 @@
 package modelo;
 
+import dto.UsuarioDTO;
+
 import java.time.LocalDate;
 
 public abstract class Usuario {
@@ -7,6 +9,7 @@ public abstract class Usuario {
   private String cpf;
   private String matricula;
   private LocalDate dataNascimento;
+
 
   public Usuario(String nome, String cpf, String matricula, LocalDate dataNascimento) {
     this.nome = nome;
@@ -20,6 +23,13 @@ public abstract class Usuario {
     this.cpf = usuario.getCpf();
     this.matricula = usuario.getMatricula();
     this.dataNascimento = usuario.getDataNascimento();
+  }
+
+  public Usuario(UsuarioDTO usuarioDTO) {
+    this.nome = usuarioDTO.getNome();
+    this.cpf = usuarioDTO.getCpf();
+    this.matricula = usuarioDTO.getMatricula();
+    this.dataNascimento = LocalDate.parse(usuarioDTO.getDataNascimento(), usuarioDTO.getFormato());
   }
 
 

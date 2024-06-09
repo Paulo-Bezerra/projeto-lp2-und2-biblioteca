@@ -1,5 +1,8 @@
 package modelo;
 
+import dto.EstudanteDTO;
+import dto.UsuarioDTO;
+
 import java.time.LocalDate;
 
 public class Estudante extends Usuario {
@@ -13,6 +16,11 @@ public class Estudante extends Usuario {
   public Estudante(Estudante estudante) {
     super(estudante.getNome(), estudante.getCpf(), estudante.getMatricula(), estudante.getDataNascimento());
     this.curso = estudante.getCurso();
+  }
+
+  public Estudante(EstudanteDTO estudanteDTO) {
+    super(estudanteDTO);
+    this.curso = estudanteDTO.getCurso();
   }
 
   public String getCurso() {
