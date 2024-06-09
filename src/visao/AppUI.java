@@ -4,6 +4,10 @@ import controlador.Controlador;
 import dto.BibliotecarioDTO;
 import dto.EstudanteDTO;
 import dto.ProfessorDTO;
+import dto.UsuarioDTO;
+import util.Leitura;
+
+import java.util.List;
 
 public class AppUI {
   private final Controlador controlador = new Controlador();
@@ -15,6 +19,7 @@ public class AppUI {
       switch (opcao) {
         case 1:
           gerenciarUsuario();
+          break;
       }
 
     } while (opcao != 4);
@@ -26,14 +31,56 @@ public class AppUI {
       opcao = MenuUI.exibirGerenciarUsuario();
       switch (opcao) {
         case 1:
-          cadastrarUsuario();
+          cadastrarUsuario(); // foi
           break;
         case 2:
-          removerUsuario();
+          removerUsuario(); // foi
+          break;
+        case 3:
+          consultarUsuario(); // aqui
           break;
       }
 
     } while (opcao != 4);
+  }
+
+  private void consultarUsuario() {
+    int opcao = 0;
+    do {
+      opcao = MenuUI.exibirConsultarUsuario();
+      switch (opcao) {
+        case 1: //Listar todos os usuários.
+          listarUsuarios();
+          break;
+          case 2:
+            buscarUsuario();
+            break;
+      }
+    } while (opcao != 5);
+
+  }
+
+  private void buscarUsuario() {
+    String nome = Leitura.leStr("Informe o nome: ");
+    List<UsuarioDTO> resultadosBusca = controlador.buscarUsuarioPorNome(nome);
+    if (resultadosBusca.isEmpty()) {
+      System.out.println("Nenhum usuário encontrado.");
+    }
+    System.out.println("Usuarios encontrados: \n[");
+    for (UsuarioDTO usuarioDTO : resultadosBusca) {
+      System.out.println(usuarioDTO);
+    }
+    System.out.println("]");
+  }
+
+  private void listarUsuarios() {
+    List<UsuarioDTO> todosUsuarios = controlador.listarUsuarios();
+    System.out.println("Listando todos os usuarios:");
+    System.out.println("[");
+    for (UsuarioDTO usuarioDTO : todosUsuarios) {
+      System.out.println(usuarioDTO.toString());
+    }
+    System.out.println("]");
   }
 
   public void cadastrarUsuario() {
@@ -121,14 +168,24 @@ public class AppUI {
           removerUsuarioPorMatricula();
           break;
         case 2:
-          cadastrarProfessor();
-          break;
-        case 3:
-          cadastrarBibliotecario();
+          consultarMatriculaDoUsuario();
           break;
       }
 
     } while (opcao != 4);
+  }
+
+  private void consultarMatriculaDoUsuario() {
+    String nome = Leitura.leStr("Informe um nome para consulta: ");
+    List<String> resultadosBusca = controlador.buscarMatriculaPorNome(nome);
+    if (resultadosBusca.isEmpty()) {
+      System.out.println("Nenhum usuário encontrado.");
+    }
+    System.out.println("Usuarios encontrados: \n[");
+    for (String resultado : resultadosBusca) {
+      System.out.println(resultado);
+    }
+    System.out.println("]");
   }
 
   public void removerUsuarioPorMatricula() {

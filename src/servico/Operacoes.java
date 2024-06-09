@@ -4,6 +4,7 @@ import dao.BancoDAO;
 import dto.*;
 import modelo.*;
 
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -117,6 +118,7 @@ public class Operacoes implements IOperacoesLivro, IOperacoesUsuario, IOperacoes
     }
 
     // Operações com os usuário.
+
     @Override
     public String buscarUsuarioPorMatricula(String matricula) {
         HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
@@ -137,6 +139,52 @@ public class Operacoes implements IOperacoesLivro, IOperacoesUsuario, IOperacoes
     }
 
     @Override
+    public List<UsuarioDTO> buscarMatriculaPorNome(String nome) {
+        HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
+        String usuarioNormalizado, entradaNormalizada = removerAcentuacao(nome).toLowerCase();
+        ArrayList<UsuarioDTO> usuariosEncontrados = new ArrayList<>();
+
+        for (Usuario usuario : usuarios) {
+            usuarioNormalizado = removerAcentuacao(usuario.getNome()).toLowerCase();
+            if (usuarioNormalizado.contains(entradaNormalizada)) {
+                if (usuario instanceof Estudante) {
+                    usuariosEncontrados.add(new EstudanteDTO((Estudante) usuario));
+                } else if (usuario instanceof Professor) {
+                    usuariosEncontrados.add(new ProfessorDTO((Professor) usuario));
+                } else if (usuario instanceof Bibliotecario) {
+                    usuariosEncontrados.add(new BibliotecarioDTO((Bibliotecario) usuario));
+                }
+            }
+        }
+        return usuariosEncontrados;
+    }
+
+    @Override
+    public List<UsuarioDTO> buscarUsuarioPorNome(String nome) {
+        HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
+        String usuarioNormalizado, entradaNormalizada = removerAcentuacao(nome).toLowerCase();
+        ArrayList<UsuarioDTO> usuariosEncontrados = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            if (usuario.getNome().contains(entradaNormalizada)) {
+                if (usuario instanceof Estudante) {
+                    usuariosEncontrados.add(new EstudanteDTO((Estudante) usuario));
+                } else if (usuario instanceof Professor) {
+                    usuariosEncontrados.add(new ProfessorDTO((Professor) usuario));
+                } else if (usuario instanceof Bibliotecario) {
+                    usuariosEncontrados.add(new BibliotecarioDTO((Bibliotecario) usuario));
+                }
+            }
+        }
+        return usuariosEncontrados;
+    }
+
+    // Método para remover acentuação
+    public static String removerAcentuacao(String text) {
+        return Normalizer.normalize(text, Normalizer.Form.NFD)
+            .replaceAll("\\p{InCombiningDiacriticalMarks}", "");
+    }
+
+    @Override
     public boolean removerUsuarioPorMatricula(String matricula) {
         HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
         for (Usuario usuario : usuarios) {
@@ -146,6 +194,7 @@ public class Operacoes implements IOperacoesLivro, IOperacoesUsuario, IOperacoes
         }
         return false;
     }
+
 
     // Operações com os estudantes.
 
@@ -181,5 +230,20 @@ public class Operacoes implements IOperacoesLivro, IOperacoesUsuario, IOperacoes
 
     private boolean adicionarBibliotecario(Bibliotecario bibliotecario) {
         return bancoDAO.getUR().adicionarUsuario(bibliotecario);
+    }
+
+    public List<UsuarioDTO> listarUsuarios() {
+        HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
+        ArrayList<UsuarioDTO> usuariosDTO = new ArrayList<>();
+        for (Usuario usuario : usuarios) {
+            if (usuario instanceof Estudante) {
+                usuariosDTO.add(new EstudanteDTO((Estudante) usuario));
+            } else if (usuario instanceof Professor) {
+                usuariosDTO.add(new ProfessorDTO((Professor) usuario));
+            } else if (usuario instanceof Bibliotecario) {
+                usuariosDTO.add(new BibliotecarioDTO((Bibliotecario) usuario));
+            }
+        }
+        return usuariosDTO;
     }
 }

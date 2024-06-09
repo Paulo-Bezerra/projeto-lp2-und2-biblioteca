@@ -3,6 +3,8 @@ package controlador;
 import dto.*;
 import servico.Operacoes;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class Controlador {
@@ -93,5 +95,30 @@ public class Controlador {
       return false;
     }
     return op.removerUsuarioPorMatricula(matricula);
+  }
+
+  public List<String> buscarMatriculaPorNome(String nome) {
+    ArrayList<String> usuariosEncontrados = new ArrayList<>();
+    StringBuilder text = new StringBuilder();
+    for (UsuarioDTO usuarioDTO : op.buscarMatriculaPorNome(nome)) {
+      if (usuarioDTO instanceof EstudanteDTO) {
+        text = new StringBuilder("Estudante: ");
+      } else if (usuarioDTO instanceof ProfessorDTO) {
+        text = new StringBuilder("Professor: ");
+      } else if (usuarioDTO instanceof BibliotecarioDTO) {
+        text = new StringBuilder("Bibliotecario: ");
+      }
+      text.append("{Nome: '").append(usuarioDTO.getNome()).append("', Matrícula: ").append(usuarioDTO.getMatricula()).append("}");
+      usuariosEncontrados.add(text.toString());
+    }
+    return usuariosEncontrados;
+  }
+
+  public List<UsuarioDTO> listarUsuarios() {
+    return op.listarUsuarios();
+  }
+
+  public List<UsuarioDTO> buscarUsuarioPorNome(String nome) {
+    return op.buscarUsuarioPorNome(nome);
   }
 }
