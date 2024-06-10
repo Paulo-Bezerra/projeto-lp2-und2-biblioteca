@@ -141,7 +141,7 @@ public class UIExemplo {
 
     System.out.println();
 
-    int opcao = Leitura.LeInt("Qual a opcao desejada? ");
+    int opcao = Leitura.leInt("Qual a opcao desejada? ");
 
     return opcao;
   }

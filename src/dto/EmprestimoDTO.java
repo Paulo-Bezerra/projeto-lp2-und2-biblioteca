@@ -1,5 +1,7 @@
 package dto;
 
+import util.Tratamento;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -81,44 +83,7 @@ public class EmprestimoDTO implements IValidacaoDeDTO {
 
   @Override
   public boolean validar() {
-    return (validarStrings(nomeUsuario, matriculaUsuario, nomeLivro, isbn) && validarDatas(dataEmprestimo, dataEmprestimo));
-  }
-
-  private boolean validarStrings(String... entradas) {
-    for (String entrada : entradas) {
-      if (entrada.isEmpty() || entrada.equals(" ")) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  private static boolean validarDatas(String... datas) {
-    for (String data : datas) {
-      if (!validarData(data)) {
-        return false;
-      }
-    }
-    return true;
-  }
-  // Método para validar a data usando LocalDate
-  private static boolean validarData(String data) {
-    if (!validarFormatoData(data)) {
-      return false;
-    }
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    try {
-      LocalDate.parse(data, formatter);
-    } catch (DateTimeParseException e) {
-      return false;
-    }
-    return true;
-  }
-
-  // Método para validar o formato da data usando regex
-  private static boolean validarFormatoData(String data) {
-    Pattern pattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$");
-    return pattern.matcher(data).matches();
+    return (Tratamento.validarStrings(nomeUsuario, matriculaUsuario, nomeLivro, isbn)
+            && Tratamento.validarDatas(dataEmprestimo, dataEmprestimo));
   }
 }

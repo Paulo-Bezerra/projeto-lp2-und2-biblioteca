@@ -1,5 +1,7 @@
 package dto;
 
+import util.Tratamento;
+
 public class CredenciasDTO implements IValidacaoDeDTO {
   private String login;
   private String senha;
@@ -32,15 +34,6 @@ public class CredenciasDTO implements IValidacaoDeDTO {
 
   @Override
   public boolean validar() {
-    return validarStrings(login, senha);
-  }
-
-  protected boolean validarStrings(String... entradas) {
-    for (String entrada : entradas) {
-      if (entrada.isEmpty() || entrada.equals(" ")) {
-        return false;
-      }
-    }
-    return true;
+    return Tratamento.validarStrings(login, senha);
   }
 }

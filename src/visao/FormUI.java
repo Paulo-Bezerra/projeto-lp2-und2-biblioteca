@@ -2,6 +2,7 @@ package visao;
 
 import dto.BibliotecarioDTO;
 import dto.EstudanteDTO;
+import dto.LivroDTO;
 import dto.ProfessorDTO;
 import util.Leitura;
 
@@ -43,5 +44,18 @@ public class FormUI {
   public static String formRemoverUsuarioPorMatricula() {
     System.out.println("Remover usuário.");
     return Leitura.leStr("Informe a matricula: ");
+  }
+
+  public static LivroDTO formCadastrarLivro() {
+    String titulo, autor, isbn, assunto;
+    int ano, estoque;
+    System.out.println("Informe os dados do livro.");
+    titulo = Leitura.leStr("Informe o título: ");
+    autor = Leitura.leStr("Informe o autor: ");
+    isbn = Leitura.leStr("Informe o ISBN: ");
+    assunto = Leitura.leStr("Informe o assunto: ");
+    ano = Leitura.leInt("Informe o ano: ");
+    estoque = Leitura.leInt("Informe o estoque: ");
+    return new LivroDTO(titulo, autor, isbn, assunto, ano, estoque, estoque);
   }
 }

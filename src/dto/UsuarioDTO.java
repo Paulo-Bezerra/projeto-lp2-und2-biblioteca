@@ -3,6 +3,7 @@ package dto;
 import modelo.Usuario;
 
 import java.time.format.DateTimeFormatter;
+import java.util.regex.Pattern;
 
 public abstract class UsuarioDTO implements IValidacaoDeDTO {
   private String nome;
@@ -67,14 +68,5 @@ public abstract class UsuarioDTO implements IValidacaoDeDTO {
 
   public DateTimeFormatter getFormato() {
     return formato;
-  }
-
-  protected boolean validarStrings(String... entradas) {
-    for (String entrada : entradas) {
-      if (entrada.isEmpty() || entrada.equals(" ")) {
-        return false;
-      }
-    }
-    return true;
   }
 }

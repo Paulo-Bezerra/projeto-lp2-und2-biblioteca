@@ -8,7 +8,7 @@
         1. Remover usuário (necessário informar a matrícula).'
         2. Consultar matrícula do usuário.'
         3. Voltar.'
-    3. Consultar usuários.
+    3. Consultar usuários.'
         1. Listar todos os usuários.'
         2. Pesquisar usuário.'
         3. Verificar situação de usuário.
@@ -16,11 +16,11 @@
         5. Voltar.
     4. Voltar.
 
-2. Gerenciar livros.
-    1. Cadastrar livro.
-    2. Remover livro.
-    3. Consultar livros.
-        1. Listar todos os livros.
+2. Gerenciar livros.'
+    1. Cadastrar livro.'
+    2. Remover livro.'
+    3. Consultar livros.'
+        1. Listar todos os livros.'
         2. Pesquisar livro.
         3. Voltar.
     4. Voltar.

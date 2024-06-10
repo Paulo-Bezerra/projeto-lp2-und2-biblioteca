@@ -1,6 +1,7 @@
 package dto;
 
 import modelo.Livro;
+import util.Tratamento;
 
 public class LivroDTO implements IValidacaoDeDTO {
   private String titulo;
@@ -99,26 +100,9 @@ public class LivroDTO implements IValidacaoDeDTO {
   }
 
   public boolean validar() {
-    return (validarStrings(titulo, autor, isbn, assunto)
-        && validarInteiros(ano, estoque, qtdDisponivel));
-  }
-
-  private boolean validarStrings(String... entradas) {
-    for (String entrada : entradas) {
-      if (entrada.isEmpty() || entrada.equals(" ")) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  private boolean validarInteiros(Integer... entradas) {
-    for (Integer entrada : entradas) {
-      if (entrada < 0) {
-        return false;
-      }
-    }
-    return true;
+    return (Tratamento.validarStrings(titulo, autor, assunto)
+            && Tratamento.validarStringNumerica(isbn)
+            && Tratamento.validarInteirosPositivos(ano, estoque, qtdDisponivel));
   }
 
   @Override

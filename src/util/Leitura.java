@@ -6,12 +6,12 @@ public class Leitura {
 
   private static Scanner sc = new Scanner(System.in);
 
-  public static int LeInt(String msg) {
+  public static int leInt(String msg) {
     System.out.print(msg);
     return sc.nextInt();
   }
 
-  public static float LeFloat(String msg) {
+  public static float leFloat(String msg) {
     System.out.print(msg);
     return sc.nextFloat();
   }

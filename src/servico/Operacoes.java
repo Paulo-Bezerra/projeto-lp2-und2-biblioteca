@@ -10,240 +10,110 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
-public class Operacoes implements IOperacoesLivro, IOperacoesUsuario, IOperacoesEstudante, IOperacoesProfessor, IOperacoesBibliotecario, IOperacoesEmprestimo {
-    private final BancoDAO bancoDAO;
+public class Operacoes {
+  private final BancoDAO bancoDAO;
 
-    public Operacoes() {
-        bancoDAO = BancoDAO.getInstance();
+  public Operacoes() {
+    bancoDAO = BancoDAO.getInstance();
+  }
+
+  // Operações com livros.
+
+  public boolean adicionarLivro(LivroDTO livroDTO) {
+    return this.adicionarLivro(new Livro(livroDTO));
+  }
+
+  private boolean adicionarLivro(Livro livro) {
+    return bancoDAO.getLR().adicionarLivro(livro);
+  }
+
+
+  public boolean removerLivro(LivroDTO livroDTO) {
+    return this.removerLivro(new Livro(livroDTO));
+  }
+
+  private boolean removerLivro(Livro livro) {
+    return bancoDAO.getLR().removerLivro(livro);
+  }
+
+  public List<LivroDTO> listarLivros() {
+    HashMap<Livro, Integer> livros = bancoDAO.getLR().getLivros();
+    ArrayList<LivroDTO> listaLivrosDTO = new ArrayList<LivroDTO>();
+    for (Livro livro : livros.keySet()) {
+      listaLivrosDTO.add(new LivroDTO(livro, livros.get(livro)));
     }
+    return listaLivrosDTO;
+  }
 
-    // Operações com livros.
-    @Override
-    public boolean adicionarLivro(LivroDTO livroDTO) {
-        return this.adicionarLivro(new Livro(livroDTO));
+
+  public List<LivroDTO> buscarLivroPorTitulo(String titulo) {
+    HashMap<Livro, Integer> livros = bancoDAO.getLR().getLivros();
+    ArrayList<LivroDTO> listaLivrosDTO = new ArrayList<LivroDTO>();
+    for (Livro livro : livros.keySet()) {
+      if (livro.getTitulo().equals(titulo)) {
+        listaLivrosDTO.add(new LivroDTO(livro, livros.get(livro)));
+      }
     }
+    return listaLivrosDTO;
+  }
 
-    private boolean adicionarLivro(Livro livro) {
-        return bancoDAO.getLR().adicionarLivro(livro);
+
+  public List<LivroDTO> buscarLivroPorAutor(String autor) {
+    HashMap<Livro, Integer> livros = bancoDAO.getLR().getLivros();
+    ArrayList<LivroDTO> listaLivrosDTO = new ArrayList<LivroDTO>();
+    for (Livro livro : livros.keySet()) {
+      if (livro.getAutor().equals(autor)) {
+        listaLivrosDTO.add(new LivroDTO(livro, livros.get(livro)));
+      }
     }
+    return listaLivrosDTO;
+  }
 
-    @Override
-    public boolean removerLivro(LivroDTO livroDTO) {
-        return this.removerLivro(new Livro(livroDTO));
+
+  public List<LivroDTO> buscarLivroPorAssunto(String assunto) {
+    HashMap<Livro, Integer> livros = bancoDAO.getLR().getLivros();
+    ArrayList<LivroDTO> listaLivrosDTO = new ArrayList<LivroDTO>();
+    for (Livro livro : livros.keySet()) {
+      if (livro.getAssunto().equals(assunto)) {
+        listaLivrosDTO.add(new LivroDTO(livro, livros.get(livro)));
+      }
     }
+    return listaLivrosDTO;
+  }
 
-    private boolean removerLivro(Livro livro) {
-        return bancoDAO.getLR().removerLivro(livro);
+
+  public List<LivroDTO> buscarLivroPorAno(int ano) {
+    HashMap<Livro, Integer> livros = bancoDAO.getLR().getLivros();
+    ArrayList<LivroDTO> listaLivrosDTO = new ArrayList<LivroDTO>();
+    for (Livro livro : livros.keySet()) {
+      if (livro.getAno() == ano) {
+        listaLivrosDTO.add(new LivroDTO(livro, livros.get(livro)));
+      }
     }
+    return listaLivrosDTO;
+  }
 
-    public List<LivroDTO> listarLivros() {
-        HashMap<Livro, Integer> livros = bancoDAO.getLR().getLivros();
-        ArrayList<LivroDTO> listaLivrosDTO = new ArrayList<LivroDTO>();
-        for (Livro livro : livros.keySet()) {
-            listaLivrosDTO.add(new LivroDTO(livro, livros.get(livro)));
-        }
-        return listaLivrosDTO;
+
+  public List<LivroDTO> buscarLivrosPorEstoqueCadastrado(int estoqueCadastrado) {
+    HashMap<Livro, Integer> livros = bancoDAO.getLR().getLivros();
+    ArrayList<LivroDTO> listaLivrosDTO = new ArrayList<LivroDTO>();
+    for (Livro livro : livros.keySet()) {
+      if (livro.getEstoque() == estoqueCadastrado) {
+        listaLivrosDTO.add(new LivroDTO(livro, livros.get(livro)));
+      }
     }
+    return listaLivrosDTO;
+  }
 
-    @Override
-    public List<LivroDTO> buscarLivroPorTitulo(String titulo) {
-        HashMap<Livro, Integer> livros = bancoDAO.getLR().getLivros();
-        ArrayList<LivroDTO> listaLivrosDTO = new ArrayList<LivroDTO>();
-        for (Livro livro : livros.keySet()) {
-            if (livro.getTitulo().equals(titulo)) {
-                listaLivrosDTO.add(new LivroDTO(livro, livros.get(livro)));
-            }
-        }
-        return listaLivrosDTO;
+
+  public List<LivroDTO> buscarLivrosPorEstoqueDisponivel(int estoqueDisponivel) {
+    HashMap<Livro, Integer> livros = bancoDAO.getLR().getLivros();
+    ArrayList<LivroDTO> listaLivrosDTO = new ArrayList<LivroDTO>();
+    for (Livro livro : livros.keySet()) {
+      if (livros.get(livro).equals(estoqueDisponivel)) {
+        listaLivrosDTO.add(new LivroDTO(livro, livros.get(livro)));
+      }
     }
-
-    @Override
-    public List<LivroDTO> buscarLivroPorAutor(String autor) {
-        HashMap<Livro, Integer> livros = bancoDAO.getLR().getLivros();
-        ArrayList<LivroDTO> listaLivrosDTO = new ArrayList<LivroDTO>();
-        for (Livro livro : livros.keySet()) {
-            if (livro.getAutor().equals(autor)) {
-                listaLivrosDTO.add(new LivroDTO(livro, livros.get(livro)));
-            }
-        }
-        return listaLivrosDTO;
-    }
-
-    @Override
-    public List<LivroDTO> buscarLivroPorAssunto(String assunto) {
-        HashMap<Livro, Integer> livros = bancoDAO.getLR().getLivros();
-        ArrayList<LivroDTO> listaLivrosDTO = new ArrayList<LivroDTO>();
-        for (Livro livro : livros.keySet()) {
-            if (livro.getAssunto().equals(assunto)) {
-                listaLivrosDTO.add(new LivroDTO(livro, livros.get(livro)));
-            }
-        }
-        return listaLivrosDTO;
-    }
-
-    @Override
-    public List<LivroDTO> buscarLivroPorAno(int ano) {
-        HashMap<Livro, Integer> livros = bancoDAO.getLR().getLivros();
-        ArrayList<LivroDTO> listaLivrosDTO = new ArrayList<LivroDTO>();
-        for (Livro livro : livros.keySet()) {
-            if (livro.getAno() == ano) {
-                listaLivrosDTO.add(new LivroDTO(livro, livros.get(livro)));
-            }
-        }
-        return listaLivrosDTO;
-    }
-
-    @Override
-    public List<LivroDTO> buscarLivrosPorEstoqueCadastrado(int estoqueCadastrado) {
-        HashMap<Livro, Integer> livros = bancoDAO.getLR().getLivros();
-        ArrayList<LivroDTO> listaLivrosDTO = new ArrayList<LivroDTO>();
-        for (Livro livro : livros.keySet()) {
-            if (livro.getEstoque() == estoqueCadastrado) {
-                listaLivrosDTO.add(new LivroDTO(livro, livros.get(livro)));
-            }
-        }
-        return listaLivrosDTO;
-    }
-
-    @Override
-    public List<LivroDTO> buscarLivrosPorEstoqueDisponivel(int estoqueDisponivel) {
-        HashMap<Livro, Integer> livros = bancoDAO.getLR().getLivros();
-        ArrayList<LivroDTO> listaLivrosDTO = new ArrayList<LivroDTO>();
-        for (Livro livro : livros.keySet()) {
-            if (livros.get(livro).equals(estoqueDisponivel)) {
-                listaLivrosDTO.add(new LivroDTO(livro, livros.get(livro)));
-            }
-        }
-        return listaLivrosDTO;
-    }
-
-    // Operações com os usuário.
-
-    @Override
-    public String buscarUsuarioPorMatricula(String matricula) {
-        HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
-        for (Usuario usuario : usuarios) {
-            if (usuario.getMatricula().equals(matricula)) {
-                if (usuario instanceof Estudante) {
-                    return new EstudanteDTO((Estudante) usuario).toString();
-                }
-                if (usuario instanceof Professor) {
-                    return new ProfessorDTO((Professor) usuario).toString();
-                }
-                if (usuario instanceof Bibliotecario) {
-                    return new BibliotecarioDTO((Bibliotecario) usuario).toString();
-                }
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public List<UsuarioDTO> buscarMatriculaPorNome(String nome) {
-        HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
-        String usuarioNormalizado, entradaNormalizada = removerAcentuacao(nome).toLowerCase();
-        ArrayList<UsuarioDTO> usuariosEncontrados = new ArrayList<>();
-
-        for (Usuario usuario : usuarios) {
-            usuarioNormalizado = removerAcentuacao(usuario.getNome()).toLowerCase();
-            if (usuarioNormalizado.contains(entradaNormalizada)) {
-                if (usuario instanceof Estudante) {
-                    usuariosEncontrados.add(new EstudanteDTO((Estudante) usuario));
-                } else if (usuario instanceof Professor) {
-                    usuariosEncontrados.add(new ProfessorDTO((Professor) usuario));
-                } else if (usuario instanceof Bibliotecario) {
-                    usuariosEncontrados.add(new BibliotecarioDTO((Bibliotecario) usuario));
-                }
-            }
-        }
-        return usuariosEncontrados;
-    }
-
-    @Override
-    public List<UsuarioDTO> buscarUsuarioPorNome(String nome) {
-        HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
-        String usuarioNormalizado, entradaNormalizada = removerAcentuacao(nome).toLowerCase();
-        ArrayList<UsuarioDTO> usuariosEncontrados = new ArrayList<>();
-        for (Usuario usuario : usuarios) {
-            if (usuario.getNome().contains(entradaNormalizada)) {
-                if (usuario instanceof Estudante) {
-                    usuariosEncontrados.add(new EstudanteDTO((Estudante) usuario));
-                } else if (usuario instanceof Professor) {
-                    usuariosEncontrados.add(new ProfessorDTO((Professor) usuario));
-                } else if (usuario instanceof Bibliotecario) {
-                    usuariosEncontrados.add(new BibliotecarioDTO((Bibliotecario) usuario));
-                }
-            }
-        }
-        return usuariosEncontrados;
-    }
-
-    // Método para remover acentuação
-    public static String removerAcentuacao(String text) {
-        return Normalizer.normalize(text, Normalizer.Form.NFD)
-            .replaceAll("\\p{InCombiningDiacriticalMarks}", "");
-    }
-
-    @Override
-    public boolean removerUsuarioPorMatricula(String matricula) {
-        HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
-        for (Usuario usuario : usuarios) {
-            if (usuario.getMatricula().equals(matricula)) {
-                return bancoDAO.getUR().removerUsuario(usuario);
-            }
-        }
-        return false;
-    }
-
-
-    // Operações com os estudantes.
-
-    @Override
-    public boolean adicionarEstudante(EstudanteDTO estudanteDTO) {
-        return adicionarEstudante(new Estudante(estudanteDTO));
-    }
-
-    private boolean adicionarEstudante(Estudante estudante) {
-        return bancoDAO.getUR().adicionarUsuario(estudante);
-    }
-
-    @Override
-    public List<EstudanteDTO> listarEstudantes() {
-        return List.of();
-    }
-
-    // Operações com os professores.
-    @Override
-    public boolean adicionarProfessor(ProfessorDTO professorDTO) {
-        return adicionarProfessor(new Professor(professorDTO));
-    }
-
-    private boolean adicionarProfessor(Professor professor) {
-        return bancoDAO.getUR().adicionarUsuario(professor);
-    }
-
-    // Operações com os professores.
-    @Override
-    public boolean adicionarBibliotecario(BibliotecarioDTO bibliotecarioDTO) {
-        return adicionarBibliotecario(new Bibliotecario(bibliotecarioDTO));
-    }
-
-    private boolean adicionarBibliotecario(Bibliotecario bibliotecario) {
-        return bancoDAO.getUR().adicionarUsuario(bibliotecario);
-    }
-
-    public List<UsuarioDTO> listarUsuarios() {
-        HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
-        ArrayList<UsuarioDTO> usuariosDTO = new ArrayList<>();
-        for (Usuario usuario : usuarios) {
-            if (usuario instanceof Estudante) {
-                usuariosDTO.add(new EstudanteDTO((Estudante) usuario));
-            } else if (usuario instanceof Professor) {
-                usuariosDTO.add(new ProfessorDTO((Professor) usuario));
-            } else if (usuario instanceof Bibliotecario) {
-                usuariosDTO.add(new BibliotecarioDTO((Bibliotecario) usuario));
-            }
-        }
-        return usuariosDTO;
-    }
+    return listaLivrosDTO;
+  }
 }
