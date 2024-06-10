@@ -2,6 +2,7 @@ package visao;
 
 import controlador.ControladorLivro;
 import dto.LivroDTO;
+import util.FiltroLivro;
 import util.Impressao;
 import util.Leitura;
 
@@ -64,7 +65,7 @@ public class GerenciarLivroUI {
 
   private void removerLivroPorIsbn() {
     String isbn = Leitura.leStr("Remover Livro do ISBN: ");
-    if(cLivro.removerLivroPorIsbn(isbn)) {
+    if (cLivro.removerLivroPorIsbn(isbn)) {
       System.out.println("Livro removido com sucesso.");
     } else {
       System.out.println("Não foi possivel remover o livro.");
@@ -91,7 +92,7 @@ public class GerenciarLivroUI {
           listarLivros();
           break;
         case 2:
-          consultarIsbnDoLivro();
+          pesquisarLivro();
           break;
       }
 
@@ -107,6 +108,60 @@ public class GerenciarLivroUI {
     }
     System.out.println("Listando todos os livros:");
     Impressao.imprimirLista(todosLivros);
+  }
+
+  private void pesquisarLivro() {
+    int opcao = 0;
+
+    do {
+      opcao = MenuUI.pesquisarLivro();
+      switch (opcao) {
+        case 1:
+          pesquisarLivroPorTitulo();
+          break;
+        case 2:
+          pesquisarLivroPorAutor();
+          break;
+        case 3:
+          pesquisarLivroPorIsbn();
+          break;
+        case 4:
+          pesquisarLivroPorAssunto();
+          break;
+
+      }
+
+    } while (opcao != 5);
+  }
+
+  private void pesquisarLivroPorTitulo() {
+    String entrada = Leitura.leStr("Titulo do livro: ");
+    listarLivrosEncontrados(cLivro.pesquisarLivro(entrada, FiltroLivro.POR_TITULO));
+  }
+
+
+  private void pesquisarLivroPorAutor() {
+    String entrada = Leitura.leStr("Autor do livro: ");
+    listarLivrosEncontrados(cLivro.pesquisarLivro(entrada, FiltroLivro.POR_AUTOR));
+  }
+
+  private void pesquisarLivroPorIsbn() {
+    String entrada = Leitura.leStr("ISBN do livro: ");
+    listarLivrosEncontrados(cLivro.pesquisarLivro(entrada, FiltroLivro.POR_ISBN));
+  }
+
+  private void pesquisarLivroPorAssunto() {
+    String entrada = Leitura.leStr("Assunto do livro: ");
+    listarLivrosEncontrados(cLivro.pesquisarLivro(entrada, FiltroLivro.POR_ASSUNTO));
+  }
+
+  private void listarLivrosEncontrados(List<LivroDTO> livrosEncontrados) {
+    if (livrosEncontrados == null || livrosEncontrados.isEmpty()) {
+      System.out.println("Nenhum livro encontrado.");
+      return;
+    }
+    System.out.println("Listando livros encontrados:");
+    Impressao.imprimirLista(livrosEncontrados);
   }
 
 }

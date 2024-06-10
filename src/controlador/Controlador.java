@@ -14,24 +14,6 @@ public class Controlador {
     op = new Operacoes();
   }
 
-  public boolean adicionarLivro(LivroDTO livroDTO) {
-    if (!livroDTO.validar()) {
-      return false;
-    }
-    return op.adicionarLivro(livroDTO);
-  }
-
-  public boolean removerLivro(LivroDTO livroDTO) {
-    if (!livroDTO.validar()) {
-      return false;
-    }
-    return op.removerLivro(livroDTO);
-  }
-
-  public List<LivroDTO> listarLivros() {
-    return op.listarLivros();
-  }
-
   public List<LivroDTO> buscarLivroPorTitulo(String titulo) {
     return op.buscarLivroPorTitulo(titulo);
   }

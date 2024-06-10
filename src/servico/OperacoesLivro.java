@@ -3,6 +3,7 @@ package servico;
 import dao.BancoDAO;
 import dto.LivroDTO;
 import modelo.Livro;
+import util.FiltroLivro;
 import util.Tratamento;
 
 import java.util.*;
@@ -65,5 +66,36 @@ public class OperacoesLivro {
       livrosDTO.add(new LivroDTO(livro, livros.get(livro)));
     }
     return livrosDTO;
+  }
+
+  public List<LivroDTO> pesquisarLivro(String entrada, FiltroLivro filtroLivro) {
+    Map<Livro, Integer> livros = cpLivros();
+    List<LivroDTO> livrosEncotrados = new ArrayList<>();
+
+    for (Livro livro : livros.keySet()) {
+      switch (filtroLivro) {
+        case POR_TITULO -> {
+          if (Tratamento.contemSubString(entrada, livro.getTitulo())) {
+            livrosEncotrados.add(new LivroDTO(livro, livros.get(livro)));
+          }
+        }
+        case POR_AUTOR -> {
+          if (Tratamento.contemSubString(entrada, livro.getAutor())) {
+            livrosEncotrados.add(new LivroDTO(livro, livros.get(livro)));
+          }
+        }
+        case POR_ISBN -> {
+          if (Tratamento.contemSubString(entrada, livro.getIsbn())) {
+            livrosEncotrados.add(new LivroDTO(livro, livros.get(livro)));
+          }
+        }
+        case POR_ASSUNTO -> {
+          if (Tratamento.contemSubString(entrada, livro.getAssunto())) {
+            livrosEncotrados.add(new LivroDTO(livro, livros.get(livro)));
+          }
+        }
+      }
+    }
+    return livrosEncotrados;
   }
 }

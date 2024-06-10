@@ -7,6 +7,14 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Pattern;
 
 public class Tratamento {
+
+  public static boolean contemSubString(String str, String subStr){
+    String strNorm, subStrNorm;
+    strNorm = removerAcentuacao(str).toLowerCase();
+    subStrNorm = removerAcentuacao(subStr).toLowerCase();
+    return strNorm.contains(subStrNorm);
+  }
+
   public static String removerAcentuacao(String texto) {
     return Normalizer.normalize(texto, Normalizer.Form.NFD)
         .replaceAll("\\p{InCombiningDiacriticalMarks}", "");

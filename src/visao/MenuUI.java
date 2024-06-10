@@ -80,6 +80,23 @@ public class MenuUI {
         Escolha uma opção:\s""";
     return Leitura.leInt(msg);
   }
+//  private String titulo;
+//  private String autor;
+//  private String isbn;
+//  private String assunto;
+//  private int ano;
+//  private int estoque;
+//  private int qtdDisponivel;
+  public static int pesquisarLivro() {
+    String msg = """
+        1. Por título.
+        2. Por autor.
+        3. Por ISBN.
+        4. Por assunto.
+        5. Voltar.
+        Escolha uma opção:\s""";
+    return Leitura.leInt(msg);
+  }
 
   public static int gerenciarEmprestimo() {
     String msg = """

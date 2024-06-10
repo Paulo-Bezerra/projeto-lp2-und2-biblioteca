@@ -2,6 +2,7 @@ package controlador;
 
 import dto.LivroDTO;
 import servico.OperacoesLivro;
+import util.FiltroLivro;
 import util.Tratamento;
 
 import java.util.ArrayList;
@@ -41,5 +42,12 @@ public class ControladorLivro {
 
   public List<LivroDTO> listarLivros() {
     return opLivro.listarLivros();
+  }
+
+  public List<LivroDTO> pesquisarLivro(String entrada, FiltroLivro filtroLivro) {
+    if (!Tratamento.validarStrings(entrada) || filtroLivro == null) {
+      return null;
+    }
+    return opLivro.pesquisarLivro(entrada, filtroLivro);
   }
 }
