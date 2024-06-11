@@ -22,6 +22,10 @@
     3. Consultar livros.'
         1. Listar todos os livros.'
         2. Pesquisar livro.'
+            1. Título.'
+            2. Autor.'
+            3. ISBN.'
+            4. Assunto.'
         3. Voltar.'
     4. Voltar.'
 

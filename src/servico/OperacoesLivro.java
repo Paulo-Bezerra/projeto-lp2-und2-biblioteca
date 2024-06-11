@@ -28,35 +28,11 @@ public class OperacoesLivro {
   }
 
   public boolean removerLivroPorIsbn(String isbn) {
-    Livro livro = getLivroPorIsbn(isbn);
+    Livro livro = bancoDAO.getLR().getLivroPorIsbn(isbn);
     if (livro == null) {
       return false;
     }
     return bancoDAO.getLR().removerLivro(livro);
-  }
-
-  private Livro getLivroPorIsbn(String isbn) {
-    Set<Livro> livros = bancoDAO.getLR().getLivros().keySet();
-    for (Livro livro : livros) {
-      if (livro.getIsbn().equals(isbn)) {
-        return livro;
-      }
-    }
-    return null;
-  }
-
-  public List<String> consultarIsbnDoLivro(String titulo) {
-    Map<Livro, Integer> livros = cpLivros();
-    List<String> livrosEncontrados = new ArrayList<>();
-    String livroFormatado, livroNormalizado, tituloNormalizado = Tratamento.removerAcentuacao(titulo).toLowerCase();
-    for (Livro livro : livros.keySet()) {
-      livroNormalizado = Tratamento.removerAcentuacao(livro.getTitulo()).toLowerCase();
-      if (livroNormalizado.contains(tituloNormalizado)) {
-        livroFormatado = "{Livro: '" + livro.getTitulo() + "', ISBN: " + livro.getIsbn() + "}";
-        livrosEncontrados.add(livroFormatado);
-      }
-    }
-    return livrosEncontrados;
   }
 
   public List<LivroDTO> listarLivros() {
@@ -71,29 +47,33 @@ public class OperacoesLivro {
   public List<LivroDTO> pesquisarLivro(String entrada, FiltroLivro filtroLivro) {
     Map<Livro, Integer> livros = cpLivros();
     List<LivroDTO> livrosEncotrados = new ArrayList<>();
-
+    boolean encontrou = false;
     for (Livro livro : livros.keySet()) {
       switch (filtroLivro) {
         case POR_TITULO -> {
-          if (Tratamento.contemSubString(entrada, livro.getTitulo())) {
-            livrosEncotrados.add(new LivroDTO(livro, livros.get(livro)));
+          if (Tratamento.contemSubString(livro.getTitulo(), entrada)) {
+            encontrou = true;
           }
         }
         case POR_AUTOR -> {
-          if (Tratamento.contemSubString(entrada, livro.getAutor())) {
-            livrosEncotrados.add(new LivroDTO(livro, livros.get(livro)));
+          if (Tratamento.contemSubString(livro.getAutor(), entrada)) {
+            encontrou = true;
           }
         }
         case POR_ISBN -> {
-          if (Tratamento.contemSubString(entrada, livro.getIsbn())) {
-            livrosEncotrados.add(new LivroDTO(livro, livros.get(livro)));
+          if (Tratamento.contemSubString(livro.getIsbn(), entrada)) {
+            encontrou = true;
           }
         }
         case POR_ASSUNTO -> {
-          if (Tratamento.contemSubString(entrada, livro.getAssunto())) {
-            livrosEncotrados.add(new LivroDTO(livro, livros.get(livro)));
+          if (Tratamento.contemSubString(livro.getAssunto(), entrada)) {
+            encontrou = true;
           }
         }
+      }
+      if (encontrou) {
+        livrosEncotrados.add(new LivroDTO(livro, livros.get(livro)));
+        encontrou = false;
       }
     }
     return livrosEncotrados;

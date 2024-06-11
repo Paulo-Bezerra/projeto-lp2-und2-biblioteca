@@ -5,6 +5,7 @@ import dto.EstudanteDTO;
 import dto.ProfessorDTO;
 import dto.UsuarioDTO;
 import servico.OperacoesUsuario;
+import util.Tratamento;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class ControladorUsuario {
     if (matricula == null) {
       return false;
     }
-    if (matricula.isEmpty() || matricula.equals(" ")) {
+    if (!Tratamento.validarStrings()) {
       return false;
     }
     return opUsuario.removerUsuarioPorMatricula(matricula);
@@ -36,24 +37,31 @@ public class ControladorUsuario {
     if (matricula == null) {
       return null;
     }
-    if (matricula.isEmpty() || matricula.equals(" ")) {
+    if (!Tratamento.validarStrings()) {
       return null;
     }
-    return opUsuario.buscarUsuarioPorMatricula(matricula);
+    if (opUsuario.buscarUsuarioPorMatricula(matricula) == null) {
+      return null;
+    }
+    return opUsuario.buscarUsuarioPorMatricula(matricula).toString();
   }
 
   public List<String> buscarMatriculaPorNome(String nome) {
-    ArrayList<String> usuariosEncontrados = new ArrayList<>();
+    List<String> usuariosEncontrados = new ArrayList<>();
     StringBuilder text = new StringBuilder();
-    for (UsuarioDTO usuarioDTO : opUsuario.buscarMatriculaPorNome(nome)) {
+    for (UsuarioDTO usuarioDTO : buscarUsuarioPorNome(nome)) {
       if (usuarioDTO instanceof EstudanteDTO) {
-        text = new StringBuilder("Estudante: ");
+        text.append("Estudante: ");
       } else if (usuarioDTO instanceof ProfessorDTO) {
-        text = new StringBuilder("Professor: ");
+        text.append("Professor: ");
       } else if (usuarioDTO instanceof BibliotecarioDTO) {
-        text = new StringBuilder("Bibliotecario: ");
+        text.append("Bibliotecario: ");
       }
-      text.append("{Nome: '").append(usuarioDTO.getNome()).append("', Matrícula: ").append(usuarioDTO.getMatricula()).append("}");
+
+      text.append("{Nome: '").append(usuarioDTO.getNome())
+          .append("', CPF: '").append(usuarioDTO.getCpf())
+          .append("', Matrícula: '").append(usuarioDTO.getMatricula()).append("'}");
+
       usuariosEncontrados.add(text.toString());
     }
     return usuariosEncontrados;
@@ -64,6 +72,12 @@ public class ControladorUsuario {
   }
 
   public List<UsuarioDTO> buscarUsuarioPorNome(String nome) {
+    if (nome == null) {
+      return null;
+    }
+    if (!Tratamento.validarStrings(nome)) {
+      return null;
+    }
     return opUsuario.buscarUsuarioPorNome(nome);
   }
 }

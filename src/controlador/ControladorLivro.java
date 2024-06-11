@@ -6,9 +6,7 @@ import util.FiltroLivro;
 import util.Tratamento;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ControladorLivro {
   private final OperacoesLivro opLivro = new OperacoesLivro();
@@ -27,17 +25,24 @@ public class ControladorLivro {
     if (isbn == null) {
       return false;
     }
-    if (!Tratamento.validarStringNumerica(isbn)) {
+    if (!Tratamento.validarStringsNumericas(isbn)) {
       return false;
     }
     return opLivro.removerLivroPorIsbn(isbn);
   }
 
   public List<String> consultarIsbnDoLivro(String titulo) {
+    if (titulo == null) {
+      return null;
+    }
     if (!Tratamento.validarStrings(titulo)) {
       return null;
     }
-    return opLivro.consultarIsbnDoLivro(titulo);
+    List<String> isbns = new ArrayList<>();
+    for (LivroDTO livro : pesquisarLivro(titulo, FiltroLivro.POR_TITULO)) {
+      isbns.add("Livro: {Título: '" + livro.getTitulo() + "', Autor: '" + livro.getAutor() + "' ISBN: '" + livro.getIsbn() + "'}");
+    }
+    return isbns;
   }
 
   public List<LivroDTO> listarLivros() {
@@ -45,6 +50,9 @@ public class ControladorLivro {
   }
 
   public List<LivroDTO> pesquisarLivro(String entrada, FiltroLivro filtroLivro) {
+    if (entrada == null) {
+      return null;
+    }
     if (!Tratamento.validarStrings(entrada) || filtroLivro == null) {
       return null;
     }

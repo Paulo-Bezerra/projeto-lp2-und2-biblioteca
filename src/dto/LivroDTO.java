@@ -101,7 +101,7 @@ public class LivroDTO implements IValidacaoDeDTO {
 
   public boolean validar() {
     return (Tratamento.validarStrings(titulo, autor, assunto)
-            && Tratamento.validarStringNumerica(isbn)
+            && Tratamento.validarStringsNumericas(isbn)
             && Tratamento.validarInteirosPositivos(ano, estoque, qtdDisponivel));
   }
 

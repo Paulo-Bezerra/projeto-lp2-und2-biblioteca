@@ -8,23 +8,20 @@ public class Leitura {
   private static final Scanner sc = new Scanner(System.in);
 
   public static int leInt(String msg) {
-    int valor = 0;
-    boolean lido = false;
-    while (!lido) {
-      System.out.print(msg);
-      try {
-        valor = sc.nextInt();
-        lido = true;
-      } catch (InputMismatchException e) {
-        System.out.println("Erro: por favor, digite um número inteiro válido.");
-        sc.next(); // Limpa o buffer de entrada
-      }
+    System.out.print(msg);
+    try {
+      return sc.nextInt();
+    } catch (InputMismatchException e) {
+      return leInt(msg);
     }
-    return valor;
   }
 
   public static String leStr(String msg) {
     System.out.print(msg);
-    return sc.nextLine();
+    String str = sc.nextLine().trim();
+    if (Tratamento.validarStrings(str)) {
+      return sc.nextLine().trim();
+    }
+    return str;
   }
 }

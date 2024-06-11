@@ -12,8 +12,8 @@ import modelo.Usuario;
 import util.Tratamento;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class OperacoesUsuario {
   private final BancoDAO bancoDAO;
@@ -22,17 +22,12 @@ public class OperacoesUsuario {
     bancoDAO = BancoDAO.getInstance();
   }
 
-  // Operações com os usuário.
+  private Set<Usuario> cpUsuarios() {
+    return bancoDAO.getUR().getUsuarios();
+  }
 
   public <T extends UsuarioDTO> boolean adicionarUsuario(T usuarioDTO) {
-    if (usuarioDTO instanceof EstudanteDTO) {
-      return adicionarUsuario(new Estudante((EstudanteDTO) usuarioDTO));
-    } else if (usuarioDTO instanceof ProfessorDTO) {
-      return adicionarUsuario(new Professor((ProfessorDTO) usuarioDTO));
-    } else if (usuarioDTO instanceof BibliotecarioDTO) {
-      return adicionarUsuario(new Bibliotecario((BibliotecarioDTO) usuarioDTO));
-    }
-    return false;
+    return adicionarUsuario(converterDTOParaUsuario(usuarioDTO));
   }
 
   private <T extends Usuario> boolean adicionarUsuario(T usuario) {
@@ -40,90 +35,62 @@ public class OperacoesUsuario {
   }
 
   public boolean removerUsuarioPorMatricula(String matricula) {
-    HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
-    for (Usuario usuario : usuarios) {
-      if (usuario.getMatricula().equals(matricula)) {
-        return removerUsuarioPorMatricula(usuario);
-      }
-    }
-    return false;
+    return bancoDAO.getUR().removerUsuario(matricula);
   }
 
-  public boolean removerUsuarioPorMatricula(Usuario usuario) {
-    return bancoDAO.getUR().removerUsuario(usuario);
-  }
-
-  public String buscarUsuarioPorMatricula(String matricula) {
-    HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
-    for (Usuario usuario : usuarios) {
-      if (usuario.getMatricula().equals(matricula)) {
-        if (usuario instanceof Estudante) {
-          return new EstudanteDTO((Estudante) usuario).toString();
-        }
-        if (usuario instanceof Professor) {
-          return new ProfessorDTO((Professor) usuario).toString();
-        }
-        if (usuario instanceof Bibliotecario) {
-          return new BibliotecarioDTO((Bibliotecario) usuario).toString();
-        }
-      }
-    }
-    return null;
-  }
-
-
-  public List<UsuarioDTO> buscarMatriculaPorNome(String nome) {
-    HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
-    String usuarioNormalizado, entradaNormalizada = Tratamento.removerAcentuacao(nome).toLowerCase();
-    ArrayList<UsuarioDTO> usuariosEncontrados = new ArrayList<>();
-
-    for (Usuario usuario : usuarios) {
-      usuarioNormalizado = Tratamento.removerAcentuacao(usuario.getNome()).toLowerCase();
-      if (usuarioNormalizado.contains(entradaNormalizada)) {
-        if (usuario instanceof Estudante) {
-          usuariosEncontrados.add(new EstudanteDTO((Estudante) usuario));
-        } else if (usuario instanceof Professor) {
-          usuariosEncontrados.add(new ProfessorDTO((Professor) usuario));
-        } else if (usuario instanceof Bibliotecario) {
-          usuariosEncontrados.add(new BibliotecarioDTO((Bibliotecario) usuario));
-        }
-      }
-    }
-    return usuariosEncontrados;
-  }
-
-
-  public List<UsuarioDTO> buscarUsuarioPorNome(String nome) {
-    HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
-    String usuarioNormalizado, entradaNormalizada = Tratamento.removerAcentuacao(nome).toLowerCase();
-    ArrayList<UsuarioDTO> usuariosEncontrados = new ArrayList<>();
-    for (Usuario usuario : usuarios) {
-      usuarioNormalizado = Tratamento.removerAcentuacao(usuario.getNome()).toLowerCase();
-      if (usuarioNormalizado.contains(entradaNormalizada)) {
-        if (usuario instanceof Estudante) {
-          usuariosEncontrados.add(new EstudanteDTO((Estudante) usuario));
-        } else if (usuario instanceof Professor) {
-          usuariosEncontrados.add(new ProfessorDTO((Professor) usuario));
-        } else if (usuario instanceof Bibliotecario) {
-          usuariosEncontrados.add(new BibliotecarioDTO((Bibliotecario) usuario));
-        }
-      }
-    }
-    return usuariosEncontrados;
+  public UsuarioDTO buscarUsuarioPorMatricula(String matricula) {
+    return converterUsuarioParaDTO(bancoDAO.getUR().getUsuarioPorMatricula(matricula));
   }
 
   public List<UsuarioDTO> listarUsuarios() {
-    HashSet<Usuario> usuarios = bancoDAO.getUR().getUsuarios();
     ArrayList<UsuarioDTO> usuariosDTO = new ArrayList<>();
-    for (Usuario usuario : usuarios) {
-      if (usuario instanceof Estudante) {
-        usuariosDTO.add(new EstudanteDTO((Estudante) usuario));
-      } else if (usuario instanceof Professor) {
-        usuariosDTO.add(new ProfessorDTO((Professor) usuario));
-      } else if (usuario instanceof Bibliotecario) {
-        usuariosDTO.add(new BibliotecarioDTO((Bibliotecario) usuario));
-      }
+    for (Usuario usuario : cpUsuarios()) {
+      usuariosDTO.add(converterUsuarioParaDTO(usuario));
     }
     return usuariosDTO;
+  }
+
+  public List<UsuarioDTO> buscarUsuarioPorNome(String nome) {
+    ArrayList<UsuarioDTO> usuariosEncontrados = new ArrayList<>();
+    for (Usuario usuario : cpUsuarios()) {
+      if (Tratamento.contemSubString(usuario.getNome(), nome)) {
+        usuariosEncontrados.add(converterUsuarioParaDTO(usuario));
+      }
+    }
+    return usuariosEncontrados;
+  }
+
+  private Usuario converterDTOParaUsuario(UsuarioDTO usuarioDTO) {
+    switch (usuarioDTO) {
+      case EstudanteDTO estudanteDTO -> {
+        return new Estudante(estudanteDTO);
+      }
+      case ProfessorDTO professorDTO -> {
+        return new Professor(professorDTO);
+      }
+      case BibliotecarioDTO bibliotecarioDTO -> {
+        return new Bibliotecario(bibliotecarioDTO);
+      }
+      default -> {
+        return null;
+      }
+    }
+  }
+
+  private UsuarioDTO converterUsuarioParaDTO(Usuario usuario) {
+    switch (usuario) {
+      case Estudante estudante -> {
+        return new EstudanteDTO(estudante);
+      }
+      case Professor professor -> {
+        return new ProfessorDTO(professor);
+      }
+      case Bibliotecario bibliotecario -> {
+        return new BibliotecarioDTO(bibliotecario);
+      }
+      default -> {
+        return null;
+      }
+    }
   }
 }

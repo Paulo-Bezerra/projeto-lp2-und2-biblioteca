@@ -1,10 +1,7 @@
 package visao;
 
 import controlador.ControladorUsuario;
-import dto.BibliotecarioDTO;
-import dto.EstudanteDTO;
-import dto.ProfessorDTO;
-import dto.UsuarioDTO;
+import dto.*;
 import util.Impressao;
 import util.Leitura;
 
@@ -149,13 +146,7 @@ public class GerenciarUsuarioUI {
 
   private void consultarMatriculaDoUsuario() {
     String nome = Leitura.leStr("Informe um nome para consulta: ");
-    List<String> resultadosBusca = cUsuario.buscarMatriculaPorNome(nome);
-    if (resultadosBusca.isEmpty()) {
-      System.out.println("Nenhum usuário encontrado.");
-      return;
-    }
-    System.out.println("Usuarios encontrados:");
-    Impressao.imprimirLista(resultadosBusca);
+    listarUsuariosEncontrados(cUsuario.buscarMatriculaPorNome(nome));
   }
 
   private void consultarUsuario() {
@@ -175,19 +166,21 @@ public class GerenciarUsuarioUI {
   }
 
   private void listarUsuarios() {
-    List<UsuarioDTO> todosUsuarios = cUsuario.listarUsuarios();
-    System.out.println("Listando todos os usuarios:");
-    Impressao.imprimirLista(todosUsuarios);
+    listarUsuariosEncontrados(cUsuario.listarUsuarios());
   }
 
   private void buscarUsuario() {
     String nome = Leitura.leStr("Informe o nome: ");
-    List<UsuarioDTO> resultadosBusca = cUsuario.buscarUsuarioPorNome(nome);
-    if (resultadosBusca.isEmpty()) {
+    listarUsuariosEncontrados(cUsuario.buscarUsuarioPorNome(nome));
+  }
+
+  private <T> void listarUsuariosEncontrados(List<T> usuariosEncontrados) {
+    if (usuariosEncontrados == null || usuariosEncontrados.isEmpty()) {
       System.out.println("Nenhum usuário encontrado.");
+      return;
     }
-    System.out.println("Usuarios encontrados:");
-    Impressao.imprimirLista(resultadosBusca);
+    System.out.println("Listando usuários encontrados:");
+    Impressao.imprimirLista(usuariosEncontrados);
   }
 
 }

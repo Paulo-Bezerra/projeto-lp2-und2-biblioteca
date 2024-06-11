@@ -34,7 +34,7 @@ public class EstudanteDTO extends UsuarioDTO {
   @Override
   public boolean validar() {
     return (Tratamento.validarStrings(this.getNome(), this.getCurso())
-            && Tratamento.validarStringNumerica(this.getMatricula())
+            && Tratamento.validarStringsNumericas(this.getMatricula())
             && Tratamento.validarCPF(this.getCpf())
             && Tratamento.validarDatas(this.getDataNascimento()));
   }

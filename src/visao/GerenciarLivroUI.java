@@ -23,7 +23,7 @@ public class GerenciarLivroUI {
           removerLivro(); // foi
           break;
         case 3:
-          consultarLivro(); // aqui
+          consultarLivro(); // foi
           break;
       }
 

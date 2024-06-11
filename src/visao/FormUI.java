@@ -50,7 +50,7 @@ public class FormUI {
     String titulo, autor, isbn, assunto;
     int ano, estoque;
     System.out.println("Informe os dados do livro.");
-    titulo = Leitura.leStr("Informe o título: ");
+    titulo = Leitura.leStr("Informe o Aqui título: ");
     autor = Leitura.leStr("Informe o autor: ");
     isbn = Leitura.leStr("Informe o ISBN: ");
     assunto = Leitura.leStr("Informe o assunto: ");

@@ -29,7 +29,7 @@ public class Tratamento {
     return true;
   }
 
-  public static boolean validarStringNumerica(String... strNumerica) {
+  public static boolean validarStringsNumericas(String... strNumerica) {
     Pattern pattern = Pattern.compile("^\\d+$");
     for (String strNum : strNumerica) {
       if (!pattern.matcher(strNum).matches() || strNum.isEmpty()) {
