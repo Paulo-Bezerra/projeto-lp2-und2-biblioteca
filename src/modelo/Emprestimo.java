@@ -3,39 +3,39 @@ package modelo;
 import java.time.LocalDate;
 
 public class Emprestimo {
-    Usuario usuario;
-    Livro livro;
-    LocalDate dataEmprestimo;
-    LocalDate dataDevolucao;
+    private String matricula;
+    private String isbn;
+    private LocalDate dataEmprestimo;
+    private LocalDate dataDevolucao;
 
-    public Emprestimo(Usuario usuario, Livro livro, LocalDate dataEmprestimo, LocalDate dataDevolucao) {
-        this.usuario = usuario;
-        this.livro = livro;
+    public Emprestimo(String matricula, String isbn, LocalDate dataEmprestimo, LocalDate dataDevolucao) {
+        this.matricula = matricula;
+        this.isbn = isbn;
         this.dataEmprestimo = dataEmprestimo;
         this.dataDevolucao = dataDevolucao;
     }
 
     public Emprestimo(Emprestimo emprestimo) {
-        this.usuario = emprestimo.getUsuario();
-        this.livro = emprestimo.getLivro();
+        this.matricula = emprestimo.getMatricula();
+        this.isbn = emprestimo.getIsbn();
         this.dataEmprestimo = emprestimo.getDataEmprestimo();
         this.dataDevolucao = emprestimo.getDataDevolucao();
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public String getMatricula() {
+        return matricula;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
     }
 
-    public Livro getLivro() {
-        return livro;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setLivro(Livro livro) {
-        this.livro = livro;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public LocalDate getDataEmprestimo() {
