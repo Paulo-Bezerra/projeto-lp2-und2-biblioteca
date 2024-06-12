@@ -1,7 +1,6 @@
 package visao;
 
 public class AppUI {
-  private final Controlador controlador = new Controlador();
   private final GerenciarUsuarioUI gUsuarioUI = new GerenciarUsuarioUI();
   private final GerenciarLivroUI gLivroUI = new GerenciarLivroUI();
 
