@@ -13,8 +13,8 @@ public class EmprestimoRepositorio {
 
   public EmprestimoRepositorio() {
     this.ER = new HashSet<>();
-    this.matriculas_empretimos = new HashMap();
-    this.isbns_empretimos = new HashMap();
+    this.matriculas_empretimos = new HashMap<>();
+    this.isbns_empretimos = new HashMap<>();
   }
 
   public boolean adicionaEmprestimo(Emprestimo emprestimo) {
@@ -48,7 +48,7 @@ public class EmprestimoRepositorio {
   }
 
   public HashSet<Emprestimo> getEmprestimos() {
-    return new HashSet<Emprestimo>(ER);
+    return new HashSet<>(ER);
   }
 
   public ArrayList<Emprestimo> getEmprestimosPorMatricula(String matricula) {

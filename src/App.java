@@ -1,5 +1,3 @@
-import controlador.Controlador;
-import dto.LivroDTO;
 import visao.AppUI;
 
 public class App {

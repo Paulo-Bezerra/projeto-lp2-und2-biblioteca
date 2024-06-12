@@ -1,7 +1,5 @@
 package visao;
 
-import controlador.Controlador;
-
 public class AppUI {
   private final Controlador controlador = new Controlador();
   private final GerenciarUsuarioUI gUsuarioUI = new GerenciarUsuarioUI();
