@@ -40,10 +40,10 @@ public class ProfessorDTO extends UsuarioDTO {
   @Override
   public String toString() {
     return "Professor: {" +
-           "Nome: '" + this.getNome() + "'" +
-           ", CPF: '" + this.getCpf() + "'" +
-           ", Matrícula: '" + this.getMatricula() + "'" +
-           ", Data de nascimento: '" + this.getDataNascimento() + "'" +
+           "Nome: " + this.getNome() +
+           ", CPF: " + this.getCpf() +
+           ", Matrícula: " + this.getMatricula() +
+           ", Nascimento: " + this.getDataNascimento() +
            ", Departamento: " + this.getDepartamento() +
            "}";
   }

@@ -8,16 +8,16 @@ import java.util.Objects;
 public class Livro implements Serializable {
   private String titulo;
   private String autor;
-  private String isbn;
   private String assunto;
+  private String isbn;
   private int ano;
   private int estoque;
 
-  public Livro(String titulo, String autor, String isbn, String assunto, int ano, int estoque) {
+  public Livro(String titulo, String autor, String assunto, String isbn, int ano, int estoque) {
     this.titulo = titulo;
     this.autor = autor;
-    this.isbn = isbn;
     this.assunto = assunto;
+    this.isbn = isbn;
     this.ano = ano;
     this.estoque = estoque;
   }
@@ -25,8 +25,8 @@ public class Livro implements Serializable {
   public Livro(Livro livro) {
     this.titulo = livro.getTitulo();
     this.autor = livro.getAutor();
-    this.isbn = livro.getIsbn();
     this.assunto = livro.getAssunto();
+    this.isbn = livro.getIsbn();
     this.ano = livro.getAno();
     this.estoque = livro.getEstoque();
   }
@@ -34,8 +34,8 @@ public class Livro implements Serializable {
   public Livro(LivroDTO livroDTO) {
     this.titulo = livroDTO.getTitulo();
     this.autor = livroDTO.getAutor();
-    this.isbn = livroDTO.getIsbn();
     this.assunto = livroDTO.getAssunto();
+    this.isbn = livroDTO.getIsbn();
     this.ano = livroDTO.getAno();
     this.estoque = livroDTO.getEstoque();
   }
@@ -56,20 +56,20 @@ public class Livro implements Serializable {
     this.autor = autor;
   }
 
-  public String getIsbn() {
-    return isbn;
-  }
-
-  public void setIsbn(String isbn) {
-    this.isbn = isbn;
-  }
-
   public String getAssunto() {
     return assunto;
   }
 
   public void setAssunto(String assunto) {
     this.assunto = assunto;
+  }
+
+  public String getIsbn() {
+    return isbn;
+  }
+
+  public void setIsbn(String isbn) {
+    this.isbn = isbn;
   }
 
   public int getAno() {

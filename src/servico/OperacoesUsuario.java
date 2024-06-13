@@ -9,6 +9,8 @@ import modelo.Bibliotecario;
 import modelo.Estudante;
 import modelo.Professor;
 import modelo.Usuario;
+import repositorio.EmprestimoRepositorio;
+import repositorio.UsuarioRepositorio;
 import util.Tratamento;
 
 import java.util.ArrayList;
@@ -22,8 +24,16 @@ public class OperacoesUsuario {
     bancoDAO = BancoDAO.getInstance();
   }
 
+  private UsuarioRepositorio getUR() {
+    return bancoDAO.getUR();
+  }
+
+  private EmprestimoRepositorio getER() {
+    return bancoDAO.getER();
+  }
+
   private Set<Usuario> cpUsuarios() {
-    return bancoDAO.getUR().getUsuarios();
+    return getUR().getUsuarios();
   }
 
   public <T extends UsuarioDTO> boolean adicionarUsuario(T usuarioDTO) {
@@ -31,15 +41,18 @@ public class OperacoesUsuario {
   }
 
   private <T extends Usuario> boolean adicionarUsuario(T usuario) {
-    return bancoDAO.getUR().adicionarUsuario(usuario);
+    return getUR().adicionarUsuario(usuario);
   }
 
   public boolean removerUsuarioPorMatricula(String matricula) {
-    return bancoDAO.getUR().removerUsuario(matricula);
+    if (getER().getNumEmprestimosPorMatricula(matricula) > 0) {
+      return false;
+    }
+    return getUR().removerUsuario(matricula);
   }
 
   public UsuarioDTO buscarUsuarioPorMatricula(String matricula) {
-    return converterUsuarioParaDTO(bancoDAO.getUR().getUsuarioPorMatricula(matricula));
+    return converterUsuarioParaDTO(getUR().getUsuarioPorMatricula(matricula));
   }
 
   public List<UsuarioDTO> listarUsuarios() {

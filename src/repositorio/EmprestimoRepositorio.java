@@ -25,9 +25,10 @@ public class EmprestimoRepositorio implements Serializable {
   }
 
   public boolean adicionaEmprestimo(Emprestimo emprestimo) {
-    if (mat_isbn_ER.containsKey(emprestimo.getMatricula() + "-" +emprestimo.getIsbn())) {
+    if (existeEmprestimo(emprestimo.getMatricula(), emprestimo.getIsbn())) {
       return false;
     }
+
     mat_isbn_ER.put(emprestimo.getMatricula() + "-" + emprestimo.getIsbn(), emprestimo);
 
     if (matriculas_empretimos.containsKey(emprestimo.getMatricula())) {
@@ -47,13 +48,24 @@ public class EmprestimoRepositorio implements Serializable {
     return true;
   }
 
-  public boolean removeEmprestimo(String matricula, String isbn) {
-    if (!mat_isbn_ER.containsKey(matricula + "-" + isbn)) {
+  public boolean removerEmprestimo(String matricula, String isbn) {
+    if (!existeEmprestimo(matricula, matricula)) {
       return false;
     }
+
+    Emprestimo emprestimo = new Emprestimo(getEmprestimo(matricula, isbn));
     mat_isbn_ER.remove(matricula + "-" + isbn);
-    matriculas_empretimos.remove(matricula);
-    isbns_empretimos.remove(isbn);
+
+    matriculas_empretimos.get(matricula).remove(emprestimo);
+    if (getNumEmprestimosPorMatricula(matricula) == 0) {
+      matriculas_empretimos.remove(matricula);
+    }
+
+    matriculas_empretimos.get(isbn).remove(emprestimo);
+    if (getNumEmprestimosPorMatricula(isbn) == 0) {
+      isbns_empretimos.remove(isbn);
+    }
+
     return true;
   }
 
@@ -75,5 +87,22 @@ public class EmprestimoRepositorio implements Serializable {
 
   public boolean existeEmprestimo(String matricula, String isbn) {
     return mat_isbn_ER.containsKey(matricula + "-" + isbn);
+  }
+
+  public int getNumEmprestimosPorMatricula(String matricula) {
+    try {
+      return matriculas_empretimos.get(matricula).size();
+    } catch (Exception e) {
+      return 0;
+    }
+  }
+
+  public int getNumEmprestimosIsbn(String isbn) {
+    try {
+      return isbns_empretimos.get(isbn).size();
+    } catch (Exception e) {
+      return 0;
+    }
+
   }
 }

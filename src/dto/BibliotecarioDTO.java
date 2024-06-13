@@ -52,10 +52,10 @@ public class BibliotecarioDTO extends UsuarioDTO {
   @Override
   public String toString() {
     return "Bibliotecário: {" +
-           "Nome: '" + this.getNome() + "'" +
-           ", CPF: '" + this.getCpf() + "'" +
-           ", Matrícula: '" + this.getMatricula() + "'" +
-           ", Data de nascimento: '" + this.getDataNascimento() + "'" +
+           "Nome: " + this.getNome() +
+           ", CPF: " + this.getCpf() +
+           ", Matrícula: " + this.getMatricula() +
+           ", Data de nascimento: " + this.getDataNascimento() +
            ", Login: " + this.getLogin() +
            "}";
   }

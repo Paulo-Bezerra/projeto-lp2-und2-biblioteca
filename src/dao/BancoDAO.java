@@ -5,16 +5,15 @@ import repositorio.LivroRepositorio;
 import repositorio.UsuarioRepositorio;
 
 import java.io.*;
-import java.nio.file.Paths;
 
 
 public class BancoDAO {
   private LivroRepositorio LR;
   private UsuarioRepositorio UR;
   private EmprestimoRepositorio ER;
-  private final String arquivoURPath = "arquivo_ur.bin";
-  private final String arquivoLRPath = "arquivo_lr.bin";
-  private final String arquivoERPath = "arquivo_er.bin";
+  private final String caminhoArquivoUR = "arquivo_ur.bin";
+  private final String caminhoArquivoLR = "arquivo_lr.bin";
+  private final String caminhaArquivoER = "arquivo_er.bin";
 
   private static BancoDAO instance;
 
@@ -44,55 +43,59 @@ public class BancoDAO {
   }
 
   public boolean salvarDados() {
-    try {
-      FileOutputStream arquivo = new FileOutputStream(arquivoURPath);
-      ObjectOutputStream saida = new ObjectOutputStream(arquivo);
-      saida.writeObject(UR);
-      saida.close();
+    try (FileOutputStream arquivoUR = new FileOutputStream("arquivo_ur.bin");
+         ObjectOutputStream saidaUR = new ObjectOutputStream(arquivoUR);
+         FileOutputStream arquivoLR = new FileOutputStream("arquivo_lr.bin");
+         ObjectOutputStream saidaLR = new ObjectOutputStream(arquivoLR);
+         FileOutputStream arquivoER = new FileOutputStream("arquivo_er.bin");
+         ObjectOutputStream saidaER = new ObjectOutputStream(arquivoER)
+    ) {
+      saidaUR.writeObject(UR);
+      saidaUR.close();
 
-      arquivo = new FileOutputStream(arquivoLRPath);
-      saida = new ObjectOutputStream(arquivo);
-      saida.writeObject(LR);
-      saida.close();
+      saidaLR.writeObject(LR);
+      saidaLR.close();
 
-      arquivo = new FileOutputStream(arquivoERPath);
-      saida = new ObjectOutputStream(arquivo);
-      saida.writeObject(ER);
-      saida.close();
+      saidaER.writeObject(ER);
+      saidaER.close();
       return true;
     } catch (Exception e) {
+      System.out.println("Houve um erro salvar os dados.");
       System.out.println(e.getMessage());
       return false;
     }
   }
 
   public boolean carregarDados() {
-    try {
-      FileInputStream arquivo = new FileInputStream(arquivoURPath);
-      ObjectInputStream entrada = new ObjectInputStream(arquivo);
-      this.UR = new UsuarioRepositorio((UsuarioRepositorio) entrada.readObject());
-      entrada.close();
+    try (FileInputStream arquivoUR = new FileInputStream("arquivo_ur.bin");
+         ObjectInputStream entradaUR = new ObjectInputStream(arquivoUR);
+         FileInputStream arquivoLR = new FileInputStream("arquivo_lr.bin");
+         ObjectInputStream entradaLR = new ObjectInputStream(arquivoLR);
+         FileInputStream arquivoER = new FileInputStream("arquivo_er.bin");
+         ObjectInputStream entradaER = new ObjectInputStream(arquivoER)
+    ) {
+      this.UR = new UsuarioRepositorio((UsuarioRepositorio) entradaUR.readObject());
+      entradaUR.close();
 
-      arquivo = new FileInputStream(arquivoLRPath);
-      entrada = new ObjectInputStream(arquivo);
-      this.LR = new LivroRepositorio((LivroRepositorio) entrada.readObject());
-      entrada.close();
+      this.LR = new LivroRepositorio((LivroRepositorio) entradaLR.readObject());
+      entradaLR.close();
 
-      arquivo = new FileInputStream(arquivoERPath);
-      entrada = new ObjectInputStream(arquivo);
-      this.ER = new EmprestimoRepositorio((EmprestimoRepositorio) entrada.readObject());
-      entrada.close();
+      this.ER = new EmprestimoRepositorio((EmprestimoRepositorio) entradaER.readObject());
+      entradaER.close();
 
       return true;
     } catch (FileNotFoundException e) {
       System.out.println("Erro ao carregar um dos arquivos de dados.\n" +
           "(Ignore caso for o primeiro uso).");
+      System.out.println(e.getMessage());
       return false;
     } catch (ClassNotFoundException e) {
       System.out.println("Houve um erro ao copiar os dados dos arquivos para as classes.");
+      System.out.println(e.getMessage());
       return false;
     } catch (IOException e) {
       System.out.println("Houve um erro carregar os arquivos de dados.");
+      System.out.println(e.getMessage());
       return false;
     }
   }

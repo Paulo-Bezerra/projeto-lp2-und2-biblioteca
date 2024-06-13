@@ -1,8 +1,6 @@
 package modelo;
 
 import dto.BibliotecarioDTO;
-import dto.CredenciasDTO;
-import util.TipoUsuario;
 
 import java.time.LocalDate;
 

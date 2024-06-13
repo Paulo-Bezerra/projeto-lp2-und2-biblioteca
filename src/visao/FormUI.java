@@ -44,16 +44,16 @@ public class FormUI {
   }
 
   public static LivroDTO formCadastrarLivro() {
-    String titulo, autor, isbn, assunto;
+    String titulo, autor, assunto, isbn;
     int ano, estoque;
     System.out.println("Informe os dados do livro.");
     titulo = Leitura.leStr("Informe o Aqui título: ");
     autor = Leitura.leStr("Informe o autor: ");
-    isbn = Leitura.leStr("Informe o ISBN: ");
     assunto = Leitura.leStr("Informe o assunto: ");
+    isbn = Leitura.leStr("Informe o ISBN: ");
     ano = Leitura.leInt("Informe o ano: ");
     estoque = Leitura.leInt("Informe o estoque: ");
-    return new LivroDTO(titulo, autor, isbn, assunto, ano, estoque, estoque);
+    return new LivroDTO(titulo, autor, assunto, isbn, ano, estoque, estoque);
   }
 
   public static EmprestimoDTO formRegistrarEmprestimo() {

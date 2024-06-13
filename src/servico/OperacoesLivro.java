@@ -3,11 +3,15 @@ package servico;
 import dao.BancoDAO;
 import dto.LivroDTO;
 import modelo.Livro;
+import repositorio.EmprestimoRepositorio;
 import repositorio.LivroRepositorio;
+import repositorio.UsuarioRepositorio;
 import util.FiltroLivro;
 import util.Tratamento;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class OperacoesLivro {
   private final BancoDAO bancoDAO;
@@ -18,6 +22,10 @@ public class OperacoesLivro {
 
   private LivroRepositorio getLR() {
     return bancoDAO.getLR();
+  }
+
+  private EmprestimoRepositorio getER() {
+    return bancoDAO.getER();
   }
 
   private HashSet<Livro> cpLivros() {
@@ -33,13 +41,16 @@ public class OperacoesLivro {
   }
 
   public boolean removerLivroPorIsbn(String isbn) {
-    return bancoDAO.getLR().removerLivro(isbn);
+    if (getER().getNumEmprestimosIsbn(isbn) > 0) {
+      return false;
+    }
+    return getLR().removerLivro(isbn);
   }
 
   public List<LivroDTO> listarLivros() {
     List<LivroDTO> livrosDTO = new ArrayList<>();
     for (Livro livro : cpLivros()) {
-      livrosDTO.add(new LivroDTO(livro, getLR().getDisponibilidadePorIsbn(livro.getIsbn())));
+      livrosDTO.add(new LivroDTO(livro, calcularDisponibilidade(livro)));
     }
     return livrosDTO;
   }
@@ -71,7 +82,7 @@ public class OperacoesLivro {
         }
       }
       if (encontrou) {
-        livrosEncotrados.add(new LivroDTO(livro, getLR().getDisponibilidadePorIsbn(livro.getIsbn())));
+        livrosEncotrados.add(new LivroDTO(livro, calcularDisponibilidade(livro)));
         encontrou = false;
       }
     }
@@ -79,6 +90,20 @@ public class OperacoesLivro {
   }
 
   public LivroDTO buscarLivroPorIsbn(String isbn) {
-    return new LivroDTO(getLR().getLivroPorIsbn(isbn), getLR().getDisponibilidadePorIsbn(isbn));
+    Livro livro = getLR().getLivroPorIsbn(isbn);
+    try {
+      return new LivroDTO(livro, calcularDisponibilidade(livro));
+    } catch (Exception e) {
+      return null;
+    }
+  }
+
+  private int calcularDisponibilidade(Livro livro) {
+    try {
+      return livro.getEstoque() - getER().getNumEmprestimosIsbn(livro.getIsbn());
+    } catch (Exception e) {
+      return 0;
+    }
+
   }
 }

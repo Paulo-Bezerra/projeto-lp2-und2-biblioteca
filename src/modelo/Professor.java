@@ -1,7 +1,6 @@
 package modelo;
 
 import dto.ProfessorDTO;
-import util.TipoUsuario;
 
 import java.time.LocalDate;
 

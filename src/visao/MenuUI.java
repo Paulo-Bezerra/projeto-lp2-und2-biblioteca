@@ -85,8 +85,8 @@ public class MenuUI {
     String msg = """
         1. Por título.
         2. Por autor.
-        3. Por ISBN.
-        4. Por assunto.
+        3. Por assunto.
+        4. Por ISBN.
         5. Voltar.
         Escolha uma opção:\s""";
     return Leitura.leInt(msg);
@@ -112,7 +112,7 @@ public class MenuUI {
     return Leitura.leInt(msg);
   }
 
-  public static int registrarDevoulucao() {
+  public static int registrarDevolucao() {
     String msg = """
         1. Remover emprestimo (Precisa informar: Matrícula e ISBN).
         2. Consultar matrícula do usuário.

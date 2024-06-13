@@ -10,47 +10,38 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class UsuarioRepositorio implements Serializable {
-  private final HashSet<Usuario> UR;
-  private final HashMap<String, Usuario> usuarioPorMatricula;
+  private final HashMap<String, Usuario> matriculas_UR;
 
   public UsuarioRepositorio() {
-    this.UR = new HashSet<>();
-    this.usuarioPorMatricula = new HashMap<>();
+    this.matriculas_UR = new HashMap<>();
   }
 
   public UsuarioRepositorio(UsuarioRepositorio usuarioRepositorio) {
-    this.UR = new HashSet<>(usuarioRepositorio.UR);
-    this.usuarioPorMatricula = new HashMap<>(usuarioRepositorio.usuarioPorMatricula);
+    this.matriculas_UR = new HashMap<>(usuarioRepositorio.matriculas_UR);
   }
 
   public boolean adicionarUsuario(Usuario usuario) {
-    if (UR.contains(usuario) || usuarioPorMatricula.containsKey(usuario.getMatricula())) {
+    if (matriculas_UR.containsKey(usuario.getMatricula())) {
       return false;
     }
-    if (!UR.add(usuario)) {
-      return false;
-    }
-    usuarioPorMatricula.put(usuario.getMatricula(), usuario);
+    matriculas_UR.put(usuario.getMatricula(), usuario);
     return true;
   }
 
   public boolean removerUsuario(String matricula) {
-    if (!usuarioPorMatricula.containsKey(matricula)) {
+    if (!matriculas_UR.containsKey(matricula)) {
       return false;
     }
-    if (!UR.remove(usuarioPorMatricula.get(matricula))) {
-      return false;
-    }
-    usuarioPorMatricula.remove(matricula);
+    matriculas_UR.remove(matricula);
     return true;
   }
 
   public HashSet<Usuario> getUsuarios() {
-    return new HashSet<>(UR);
+    return new HashSet<>(matriculas_UR.values());
   }
 
   public Usuario getUsuarioPorMatricula(String matricula) {
-    switch (usuarioPorMatricula.get(matricula)) {
+    switch (matriculas_UR.get(matricula)) {
       case Estudante estudante -> {
         return new Estudante(estudante);
       }
@@ -65,6 +56,7 @@ public class UsuarioRepositorio implements Serializable {
       }
     }
   }
-
-
+  public boolean existeUsuario(String matricula) {
+    return matriculas_UR.containsKey(matricula);
+  }
 }

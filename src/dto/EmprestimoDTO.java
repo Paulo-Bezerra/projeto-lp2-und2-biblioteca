@@ -1,8 +1,5 @@
 package dto;
 
-import controlador.ControladorEmprestimo;
-import controlador.ControladorLivro;
-import controlador.ControladorUsuario;
 import modelo.Emprestimo;
 import util.TipoUsuario;
 import util.Tratamento;

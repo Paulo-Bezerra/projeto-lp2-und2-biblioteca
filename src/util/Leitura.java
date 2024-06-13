@@ -9,10 +9,14 @@ public class Leitura {
 
   public static int leInt(String msg) {
     System.out.print(msg);
-    try {
-      return sc.nextInt();
-    } catch (InputMismatchException e) {
-      return leInt(msg);
+    while (true) {
+      try {
+        return sc.nextInt();
+      } catch (InputMismatchException e) {
+        System.out.println("Entrada inválida. Por favor, digite um número inteiro.");
+        sc.next(); // Limpa o buffer do scanner
+        System.out.print(msg);
+      }
     }
   }
 

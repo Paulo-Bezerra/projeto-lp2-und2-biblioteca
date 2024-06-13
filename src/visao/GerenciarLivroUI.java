@@ -138,10 +138,10 @@ public class GerenciarLivroUI {
           pesquisarLivroPorAutor();
           break;
         case 3:
-          pesquisarLivroPorIsbn();
+          pesquisarLivroPorAssunto();
           break;
         case 4:
-          pesquisarLivroPorAssunto();
+          pesquisarLivroPorIsbn();
           break;
 
       }

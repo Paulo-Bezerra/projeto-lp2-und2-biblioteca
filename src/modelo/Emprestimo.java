@@ -3,9 +3,10 @@ package modelo;
 import dto.EmprestimoDTO;
 import util.Tratamento;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Emprestimo {
+public class Emprestimo implements Serializable {
     private String matricula;
     private String isbn;
     private LocalDate dataEmprestimo;

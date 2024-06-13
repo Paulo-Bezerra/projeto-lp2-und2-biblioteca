@@ -117,7 +117,7 @@ public class GerenciarEmprestimoUI {
   private void registrarDevolucao() {
     int opcao = 0;
     do {
-      opcao = MenuUI.registrarDevoulucao();
+      opcao = MenuUI.registrarDevolucao();
       switch (opcao) {
         case 1:
           removerEmprestimo();
@@ -197,6 +197,7 @@ public class GerenciarEmprestimoUI {
     ArrayList<String> emprestimos = cEmprestimo.getEmprestimosAtrasados();
     if (emprestimos.isEmpty()) {
       System.out.println("Nenhum devolução em atraso.");
+      return;
     }
     System.out.println("Listando empréstimos atrasados:");
     Impressao.imprimirLista(emprestimos);

@@ -6,18 +6,18 @@ import util.Tratamento;
 public class LivroDTO implements IValidacaoDeDTO {
   private String titulo;
   private String autor;
-  private String isbn;
   private String assunto;
+  private String isbn;
   private int ano;
   private int estoque;
   private int qtdDisponivel;
 
 
-  public LivroDTO(String titulo, String autor, String isbn, String assunto, int ano, int estoque, int qtdDisponivel) {
+  public LivroDTO(String titulo, String autor, String assunto, String isbn, int ano, int estoque, int qtdDisponivel) {
     this.titulo = titulo;
     this.autor = autor;
-    this.isbn = isbn;
     this.assunto = assunto;
+    this.isbn = isbn;
     this.ano = ano;
     this.estoque = estoque;
     this.qtdDisponivel = qtdDisponivel;
@@ -26,8 +26,8 @@ public class LivroDTO implements IValidacaoDeDTO {
   public LivroDTO(Livro livro, int qtdDisponivel) {
     this.titulo = livro.getTitulo();
     this.autor = livro.getAutor();
-    this.isbn = livro.getIsbn();
     this.assunto = livro.getAssunto();
+    this.isbn = livro.getIsbn();
     this.ano = livro.getAno();
     this.estoque = livro.getEstoque();
     this.qtdDisponivel = qtdDisponivel;
@@ -36,8 +36,8 @@ public class LivroDTO implements IValidacaoDeDTO {
   public LivroDTO(LivroDTO livroDTO) {
     this.titulo = livroDTO.getTitulo();
     this.autor = livroDTO.getAutor();
-    this.isbn = livroDTO.getIsbn();
     this.assunto = livroDTO.getAssunto();
+    this.isbn = livroDTO.getIsbn();
     this.ano = livroDTO.getAno();
     this.estoque = livroDTO.getEstoque();
     this.qtdDisponivel = livroDTO.getQtdDisponivel();
@@ -59,20 +59,20 @@ public class LivroDTO implements IValidacaoDeDTO {
     this.autor = autor;
   }
 
-  public String getIsbn() {
-    return isbn;
-  }
-
-  public void setIsbn(String isbn) {
-    this.isbn = isbn;
-  }
-
   public String getAssunto() {
     return assunto;
   }
 
   public void setAssunto(String assunto) {
     this.assunto = assunto;
+  }
+
+  public String getIsbn() {
+    return isbn;
+  }
+
+  public void setIsbn(String isbn) {
+    this.isbn = isbn;
   }
 
   public int getAno() {
@@ -108,10 +108,10 @@ public class LivroDTO implements IValidacaoDeDTO {
   @Override
   public String toString() {
     return "Livro: {" +
-        "Título: '" + titulo + "'" +
-        ", Autor: '" + autor + "'" +
-        ", ISBN: '" + isbn + "'" +
-        ", Assunto: '" + assunto + "'" +
+        "Título: " + titulo +
+        ", Autor: " + autor +
+        ", Assunto: " + assunto +
+        ", ISBN: " + isbn +
         ", Ano: " + ano +
         ", Cadastrados: " + estoque +
         ", Disponíveis: " + qtdDisponivel +

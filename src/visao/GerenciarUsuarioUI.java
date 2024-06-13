@@ -1,10 +1,11 @@
 package visao;
 
 import controlador.ControladorUsuario;
-import dto.*;
+import dto.BibliotecarioDTO;
+import dto.EstudanteDTO;
+import dto.ProfessorDTO;
 import util.Impressao;
 import util.Leitura;
-import util.Tratamento;
 
 import java.util.List;
 

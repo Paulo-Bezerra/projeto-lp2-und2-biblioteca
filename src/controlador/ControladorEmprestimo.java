@@ -5,7 +5,6 @@ import dto.EmprestimoDTO;
 import dto.EstudanteDTO;
 import dto.ProfessorDTO;
 import servico.OperacoesEmprestimo;
-import servico.OperacoesUsuario;
 import util.Tratamento;
 
 import java.util.ArrayList;
