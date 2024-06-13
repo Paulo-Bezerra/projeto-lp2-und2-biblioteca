@@ -72,4 +72,26 @@ public class Tratamento {
     Pattern pattern = Pattern.compile("^\\d{2}/\\d{2}/\\d{4}$");
     return pattern.matcher(data).matches();
   }
+
+  public static String dataParaString(LocalDate date) {
+    return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+  }
+
+  public static LocalDate stringParaData(String data) {
+    return LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+  }
+
+  public static LocalDate somarDias(LocalDate data, int nDias) {
+    return data.plusDays(nDias);
+  }
+
+  public static String somarDias(String data, int nDias) {
+    try {
+      return dataParaString(stringParaData(data).plusDays(nDias));
+    } catch (DateTimeParseException e) {
+      System.out.println("Erro ao converter data para string.");
+      e.printStackTrace();
+      return null;
+    }
+  }
 }

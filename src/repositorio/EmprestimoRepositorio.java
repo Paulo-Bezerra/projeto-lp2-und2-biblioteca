@@ -2,25 +2,34 @@ package repositorio;
 
 import modelo.Emprestimo;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class EmprestimoRepositorio {
-  private final HashSet<Emprestimo> ER;
+public class EmprestimoRepositorio implements Serializable {
+  private final HashMap<String, Emprestimo> mat_isbn_ER;
   private final HashMap<String, ArrayList<Emprestimo>> matriculas_empretimos;
   private final HashMap<String, ArrayList<Emprestimo>> isbns_empretimos;
 
   public EmprestimoRepositorio() {
-    this.ER = new HashSet<>();
+    this.mat_isbn_ER = new HashMap<>();
     this.matriculas_empretimos = new HashMap<>();
     this.isbns_empretimos = new HashMap<>();
   }
 
+  public EmprestimoRepositorio(EmprestimoRepositorio emprestimoRepositorio) {
+    this.mat_isbn_ER = new HashMap<>(emprestimoRepositorio.mat_isbn_ER);
+    this.matriculas_empretimos = new HashMap<>(emprestimoRepositorio.matriculas_empretimos);
+    this.isbns_empretimos = new HashMap<>(emprestimoRepositorio.isbns_empretimos);
+  }
+
   public boolean adicionaEmprestimo(Emprestimo emprestimo) {
-    if (!ER.add(emprestimo)) {
+    if (mat_isbn_ER.containsKey(emprestimo.getMatricula() + "-" +emprestimo.getIsbn())) {
       return false;
     }
+    mat_isbn_ER.put(emprestimo.getMatricula() + "-" + emprestimo.getIsbn(), emprestimo);
+
     if (matriculas_empretimos.containsKey(emprestimo.getMatricula())) {
       matriculas_empretimos.get(emprestimo.getMatricula()).add(emprestimo);
     } else {
@@ -38,17 +47,18 @@ public class EmprestimoRepositorio {
     return true;
   }
 
-  public boolean removeEmprestimo(Emprestimo emprestimo) {
-    if (!ER.remove(emprestimo)) {
+  public boolean removeEmprestimo(String matricula, String isbn) {
+    if (!mat_isbn_ER.containsKey(matricula + "-" + isbn)) {
       return false;
     }
-    matriculas_empretimos.remove(emprestimo.getMatricula());
-    isbns_empretimos.remove(emprestimo.getIsbn());
+    mat_isbn_ER.remove(matricula + "-" + isbn);
+    matriculas_empretimos.remove(matricula);
+    isbns_empretimos.remove(isbn);
     return true;
   }
 
   public HashSet<Emprestimo> getEmprestimos() {
-    return new HashSet<>(ER);
+    return new HashSet<>(mat_isbn_ER.values());
   }
 
   public ArrayList<Emprestimo> getEmprestimosPorMatricula(String matricula) {
@@ -57,5 +67,13 @@ public class EmprestimoRepositorio {
 
   public ArrayList<Emprestimo> getEmprestimosIsbn(String isbn) {
     return new ArrayList<>(isbns_empretimos.get(isbn));
+  }
+
+  public Emprestimo getEmprestimo(String matricula, String isbn) {
+    return mat_isbn_ER.get(matricula + "-" + isbn);
+  }
+
+  public boolean existeEmprestimo(String matricula, String isbn) {
+    return mat_isbn_ER.containsKey(matricula + "-" + isbn);
   }
 }

@@ -9,7 +9,8 @@ import util.Leitura;
 import java.util.List;
 
 public class GerenciarLivroUI {
-  ControladorLivro cLivro = new ControladorLivro();
+  private final ControladorLivro cLivro = new ControladorLivro();
+
 
   public void gerenciarLivro() {
     int opcao = 0;
@@ -65,6 +66,20 @@ public class GerenciarLivroUI {
 
   private void removerLivroPorIsbn() {
     String isbn = Leitura.leStr("Remover Livro do ISBN: ");
+    LivroDTO livroDTO = cLivro.buscarLivroPorIsbn(isbn);
+    if (livroDTO == null) {
+      System.out.println("Livro não encotrada.");
+      return;
+    }
+
+    String msg = "Livro a ser removido:\n" +
+        livroDTO +
+        "\nRemover livro? [1. Sim/2. Não]: ";
+    if (DialogoUI.dialogoConfirmar(msg) == 2) {
+      System.out.println("Remoção cancelada.");
+      return;
+    }
+
     if (cLivro.removerLivroPorIsbn(isbn)) {
       System.out.println("Livro removido com sucesso.");
     } else {
@@ -72,7 +87,7 @@ public class GerenciarLivroUI {
     }
   }
 
-  private void consultarIsbnDoLivro() {
+  public void consultarIsbnDoLivro() {
     String titulo = Leitura.leStr("Consultar Livro pelo título: ");
     List<String> livrosEncotrados = cLivro.consultarIsbnDoLivro(titulo);
     if (livrosEncotrados == null || livrosEncotrados.isEmpty()) {

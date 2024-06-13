@@ -1,9 +1,9 @@
 package dto;
 
 import modelo.Usuario;
+import util.Tratamento;
 
 import java.time.format.DateTimeFormatter;
-import java.util.regex.Pattern;
 
 public abstract class UsuarioDTO implements IValidacaoDeDTO {
   private String nome;
@@ -30,8 +30,7 @@ public abstract class UsuarioDTO implements IValidacaoDeDTO {
     this.nome = usuario.getNome();
     this.cpf = usuario.getCpf();
     this.matricula = usuario.getMatricula();
-    // Formata o LocalDate para o formato dd/MM/yyyy
-    this.dataNascimento = usuario.getDataNascimento().format(this.getFormato());
+    this.dataNascimento = Tratamento.dataParaString(usuario.getDataNascimento());
   }
 
   public String getNome() {

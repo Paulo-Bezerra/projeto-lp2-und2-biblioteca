@@ -5,16 +5,22 @@ import modelo.Estudante;
 import modelo.Professor;
 import modelo.Usuario;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class UsuarioRepositorio {
+public class UsuarioRepositorio implements Serializable {
   private final HashSet<Usuario> UR;
   private final HashMap<String, Usuario> usuarioPorMatricula;
 
   public UsuarioRepositorio() {
     this.UR = new HashSet<>();
     this.usuarioPorMatricula = new HashMap<>();
+  }
+
+  public UsuarioRepositorio(UsuarioRepositorio usuarioRepositorio) {
+    this.UR = new HashSet<>(usuarioRepositorio.UR);
+    this.usuarioPorMatricula = new HashMap<>(usuarioRepositorio.usuarioPorMatricula);
   }
 
   public boolean adicionarUsuario(Usuario usuario) {

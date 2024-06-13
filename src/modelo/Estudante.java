@@ -2,6 +2,7 @@ package modelo;
 
 import dto.EstudanteDTO;
 import dto.UsuarioDTO;
+import util.TipoUsuario;
 
 import java.time.LocalDate;
 

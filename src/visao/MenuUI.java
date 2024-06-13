@@ -80,13 +80,7 @@ public class MenuUI {
         Escolha uma opção:\s""";
     return Leitura.leInt(msg);
   }
-//  private String titulo;
-//  private String autor;
-//  private String isbn;
-//  private String assunto;
-//  private int ano;
-//  private int estoque;
-//  private int qtdDisponivel;
+
   public static int pesquisarLivro() {
     String msg = """
         1. Por título.
@@ -103,6 +97,26 @@ public class MenuUI {
         1. Registrar empréstimo.
         2. Registrar devolução.
         3. Consultar empréstimos.
+        4. Voltar.
+        Escolha uma opção:\s""";
+    return Leitura.leInt(msg);
+  }
+
+  public static int registrarEmprestimo() {
+    String msg = """
+        1. Registrar Emprestimo (Precisa informar: Matrícula, ISBN, Data do empréstimo e da devolução).
+        2. Consultar matrícula do usuário.
+        3. Consultar ISBN do livro.
+        4. Voltar.
+        Escolha uma opção:\s""";
+    return Leitura.leInt(msg);
+  }
+
+  public static int registrarDevoulucao() {
+    String msg = """
+        1. Remover emprestimo (Precisa informar: Matrícula e ISBN).
+        2. Consultar matrícula do usuário.
+        3. Consultar ISBN do livro.
         4. Voltar.
         Escolha uma opção:\s""";
     return Leitura.leInt(msg);

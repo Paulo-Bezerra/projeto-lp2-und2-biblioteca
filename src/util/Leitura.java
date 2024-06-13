@@ -19,7 +19,7 @@ public class Leitura {
   public static String leStr(String msg) {
     System.out.print(msg);
     String str = sc.nextLine().trim();
-    if (Tratamento.validarStrings(str)) {
+    if (str.isEmpty()) {
       return sc.nextLine().trim();
     }
     return str;

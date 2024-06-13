@@ -1,9 +1,6 @@
 package visao;
 
-import dto.BibliotecarioDTO;
-import dto.EstudanteDTO;
-import dto.LivroDTO;
-import dto.ProfessorDTO;
+import dto.*;
 import util.Leitura;
 
 public class FormUI {
@@ -57,5 +54,13 @@ public class FormUI {
     ano = Leitura.leInt("Informe o ano: ");
     estoque = Leitura.leInt("Informe o estoque: ");
     return new LivroDTO(titulo, autor, isbn, assunto, ano, estoque, estoque);
+  }
+
+  public static EmprestimoDTO formRegistrarEmprestimo() {
+    String matricula, isbn, dataEmprestimo;
+    matricula = Leitura.leStr("Informe a matricula: ");
+    isbn = Leitura.leStr("Informe a ISBN: ");
+    dataEmprestimo = Leitura.leStr("Informe a data de emprestimo (dd/MM/aaaa): ");
+    return new EmprestimoDTO(matricula, isbn, dataEmprestimo);
   }
 }

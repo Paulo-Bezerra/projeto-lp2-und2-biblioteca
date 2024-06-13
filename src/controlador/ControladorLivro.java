@@ -58,4 +58,14 @@ public class ControladorLivro {
     }
     return opLivro.pesquisarLivro(entrada, filtroLivro);
   }
+
+  public LivroDTO buscarLivroPorIsbn(String isbn) {
+    if (isbn == null) {
+      return null;
+    }
+    if (!Tratamento.validarStrings(isbn)) {
+      return null;
+    }
+    return opLivro.buscarLivroPorIsbn(isbn);
+  }
 }

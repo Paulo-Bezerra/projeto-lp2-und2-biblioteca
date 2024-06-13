@@ -1,60 +1,64 @@
 package dto;
 
+import controlador.ControladorEmprestimo;
+import controlador.ControladorLivro;
+import controlador.ControladorUsuario;
+import modelo.Emprestimo;
+import util.TipoUsuario;
 import util.Tratamento;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.regex.Pattern;
-
 public class EmprestimoDTO implements IValidacaoDeDTO {
-  String nomeUsuario;
-  String matriculaUsuario;
-  String nomeLivro;
-  String isbn;
-  String dataEmprestimo;
-  String dataDevolucao;
+  private String matricula;
+  private String isbn;
+  private String dataEmprestimo;
+  private String dataDevolucao;
+  private TipoUsuario tipoUsuario;
 
-  public EmprestimoDTO(String nomeUsuario, String matriculaUsuario, String nomeLivro, String isbn, String dataEmprestimo, String dataDevolucao) {
-    this.nomeUsuario = nomeUsuario;
-    this.matriculaUsuario = matriculaUsuario;
-    this.nomeLivro = nomeLivro;
+  public EmprestimoDTO(String matricula, String isbn, String dataEmprestimo, String dataDevolucao, TipoUsuario tipoUsuario) {
+    this.matricula = matricula;
     this.isbn = isbn;
     this.dataEmprestimo = dataEmprestimo;
     this.dataDevolucao = dataDevolucao;
+    this.tipoUsuario = tipoUsuario;
+  }
+
+  public EmprestimoDTO(String matricula, String isbn, String dataEmprestimo) {
+    this.matricula = matricula;
+    this.isbn = isbn;
+    this.dataEmprestimo = dataEmprestimo;
+    this.dataDevolucao = null;
+    this.tipoUsuario = null;
+  }
+
+  public EmprestimoDTO(String matricula, String isbn) {
+    this.matricula = matricula;
+    this.isbn = isbn;
+    this.dataEmprestimo = null;
+    this.dataDevolucao = null;
+    this.tipoUsuario = null;
   }
 
   public EmprestimoDTO(EmprestimoDTO emprestimoDTO) {
-    this.nomeUsuario = emprestimoDTO.getNomeUsuario();
-    this.matriculaUsuario = emprestimoDTO.getMatriculaUsuario();
-    this.nomeLivro = emprestimoDTO.getNomeLivro();
+    this.matricula = emprestimoDTO.getMatricula();
     this.isbn = emprestimoDTO.getIsbn();
     this.dataEmprestimo = emprestimoDTO.getDataEmprestimo();
     this.dataDevolucao = emprestimoDTO.getDataDevolucao();
   }
 
-  public String getNomeUsuario() {
-    return nomeUsuario;
+  public EmprestimoDTO(Emprestimo emprestimo) {
+    this.matricula = emprestimo.getMatricula();
+    this.isbn = emprestimo.getIsbn();
+    this.dataEmprestimo = Tratamento.dataParaString(emprestimo.getDataEmprestimo());
+    this.dataDevolucao = Tratamento.dataParaString(emprestimo.getDataDevolucao());
   }
 
-  public void setNomeUsuario(String nomeUsuario) {
-    this.nomeUsuario = nomeUsuario;
+
+  public String getMatricula() {
+    return matricula;
   }
 
-  public String getMatriculaUsuario() {
-    return matriculaUsuario;
-  }
-
-  public void setMatriculaUsuario(String matriculaUsuario) {
-    this.matriculaUsuario = matriculaUsuario;
-  }
-
-  public String getNomeLivro() {
-    return nomeLivro;
-  }
-
-  public void setNomeLivro(String nomeLivro) {
-    this.nomeLivro = nomeLivro;
+  public void setMatricula(String matricula) {
+    this.matricula = matricula;
   }
 
   public String getIsbn() {
@@ -81,9 +85,18 @@ public class EmprestimoDTO implements IValidacaoDeDTO {
     this.dataDevolucao = dataDevolucao;
   }
 
+  public TipoUsuario getTipoUsuario() {
+    return tipoUsuario;
+  }
+
+  public void setTipoUsuario(TipoUsuario tipoUsuario) {
+    this.tipoUsuario = tipoUsuario;
+  }
+
   @Override
   public boolean validar() {
-    return (Tratamento.validarStrings(nomeUsuario, matriculaUsuario, nomeLivro, isbn)
-            && Tratamento.validarDatas(dataEmprestimo, dataEmprestimo));
+    return (Tratamento.validarStringsNumericas(matricula, isbn)
+        && Tratamento.validarDatas(dataEmprestimo, dataDevolucao)
+        && tipoUsuario != null);
   }
 }

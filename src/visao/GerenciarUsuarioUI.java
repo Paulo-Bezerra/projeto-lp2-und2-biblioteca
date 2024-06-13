@@ -4,11 +4,12 @@ import controlador.ControladorUsuario;
 import dto.*;
 import util.Impressao;
 import util.Leitura;
+import util.Tratamento;
 
 import java.util.List;
 
 public class GerenciarUsuarioUI {
-  ControladorUsuario cUsuario = new ControladorUsuario();
+  private final ControladorUsuario cUsuario = new ControladorUsuario();
 
   public void gerenciarUsuario() {
     int opcao = 0;
@@ -52,8 +53,8 @@ public class GerenciarUsuarioUI {
     EstudanteDTO estudanteDTO = FormUI.formCadastrarEstudante();
 
     String msg = "Dados informados:\n" +
-                 estudanteDTO.toString() +
-                 "\nCadastrar estudante? [1. Sim/2. Não]: ";
+        estudanteDTO.toString() +
+        "\nCadastrar estudante? [1. Sim/2. Não]: ";
 
     if (DialogoUI.dialogoConfirmar(msg) == 2) {
       System.out.println("Cadastro cancelado.");
@@ -71,8 +72,8 @@ public class GerenciarUsuarioUI {
     ProfessorDTO professorDTO = FormUI.formCadastrarProfessor();
 
     String msg = "Dados informados:\n" +
-                 professorDTO.toString() +
-                 "\nCadastrar professor? [1. Sim/2. Não]: ";
+        professorDTO.toString() +
+        "\nCadastrar professor? [1. Sim/2. Não]: ";
 
     if (DialogoUI.dialogoConfirmar(msg) == 2) {
       System.out.println("Cadastro cancelado.");
@@ -90,8 +91,8 @@ public class GerenciarUsuarioUI {
     BibliotecarioDTO bibliotecarioDTO = FormUI.formCadastrarBibliotecario();
 
     String msg = "Dados informados:\n" +
-                 bibliotecarioDTO.toString() +
-                 "\nCadastrar professor? [1. Sim/2. Não]: ";
+        bibliotecarioDTO.toString() +
+        "\nCadastrar professor? [1. Sim/2. Não]: ";
 
     if (DialogoUI.dialogoConfirmar(msg) == 2) {
       System.out.println("Cadastro cancelado.");
@@ -123,15 +124,14 @@ public class GerenciarUsuarioUI {
 
   private void removerUsuarioPorMatricula() {
     String matricula = FormUI.formRemoverUsuarioPorMatricula();
-    String usuarioEncontrado = cUsuario.buscarUsuarioPorMatricula(matricula);
-    if (usuarioEncontrado == null) {
+    if (cUsuario.buscarUsuarioPorMatricula(matricula).validar()) {
       System.out.println("Matrícula não encotrada.");
       return;
     }
 
     String msg = "Dados informados:\n" +
-                 usuarioEncontrado +
-                 "\nRemover usuário? [1. Sim/2. Não]: ";
+        cUsuario.buscarUsuarioPorMatricula(matricula).toString() +
+        "\nRemover usuário? [1. Sim/2. Não]: ";
     if (DialogoUI.dialogoConfirmar(msg) == 2) {
       System.out.println("Remoção cancelada.");
       return;
@@ -144,7 +144,7 @@ public class GerenciarUsuarioUI {
     }
   }
 
-  private void consultarMatriculaDoUsuario() {
+  public void consultarMatriculaDoUsuario() {
     String nome = Leitura.leStr("Informe um nome para consulta: ");
     listarUsuariosEncontrados(cUsuario.buscarMatriculaPorNome(nome));
   }

@@ -1,5 +1,8 @@
 package modelo;
 
+import dto.EmprestimoDTO;
+import util.Tratamento;
+
 import java.time.LocalDate;
 
 public class Emprestimo {
@@ -20,6 +23,13 @@ public class Emprestimo {
         this.isbn = emprestimo.getIsbn();
         this.dataEmprestimo = emprestimo.getDataEmprestimo();
         this.dataDevolucao = emprestimo.getDataDevolucao();
+    }
+
+    public Emprestimo(EmprestimoDTO emprestimoDTO) {
+        this.matricula = emprestimoDTO.getMatricula();
+        this.isbn = emprestimoDTO.getIsbn();
+        this.dataEmprestimo = Tratamento.stringParaData(emprestimoDTO.getDataEmprestimo());
+        this.dataDevolucao = Tratamento.stringParaData(emprestimoDTO.getDataDevolucao());
     }
 
     public String getMatricula() {

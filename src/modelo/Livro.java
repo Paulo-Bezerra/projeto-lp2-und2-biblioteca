@@ -2,9 +2,10 @@ package modelo;
 
 import dto.LivroDTO;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Livro {
+public class Livro implements Serializable {
   private String titulo;
   private String autor;
   private String isbn;

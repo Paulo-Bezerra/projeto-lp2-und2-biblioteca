@@ -33,7 +33,7 @@ public class ControladorUsuario {
     return opUsuario.removerUsuarioPorMatricula(matricula);
   }
 
-  public String buscarUsuarioPorMatricula(String matricula) {
+  public UsuarioDTO buscarUsuarioPorMatricula(String matricula) {
     if (matricula == null) {
       return null;
     }
@@ -43,7 +43,7 @@ public class ControladorUsuario {
     if (opUsuario.buscarUsuarioPorMatricula(matricula) == null) {
       return null;
     }
-    return opUsuario.buscarUsuarioPorMatricula(matricula).toString();
+    return opUsuario.buscarUsuarioPorMatricula(matricula);
   }
 
   public List<String> buscarMatriculaPorNome(String nome) {

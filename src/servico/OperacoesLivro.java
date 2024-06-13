@@ -3,6 +3,7 @@ package servico;
 import dao.BancoDAO;
 import dto.LivroDTO;
 import modelo.Livro;
+import repositorio.LivroRepositorio;
 import util.FiltroLivro;
 import util.Tratamento;
 
@@ -15,8 +16,12 @@ public class OperacoesLivro {
     bancoDAO = BancoDAO.getInstance();
   }
 
-  private Map<Livro, Integer> cpLivros() {
-    return bancoDAO.getLR().getLivros();
+  private LivroRepositorio getLR() {
+    return bancoDAO.getLR();
+  }
+
+  private HashSet<Livro> cpLivros() {
+    return getLR().getLivros();
   }
 
   public boolean adicionarLivro(LivroDTO livroDTO) {
@@ -28,27 +33,21 @@ public class OperacoesLivro {
   }
 
   public boolean removerLivroPorIsbn(String isbn) {
-    Livro livro = bancoDAO.getLR().getLivroPorIsbn(isbn);
-    if (livro == null) {
-      return false;
-    }
-    return bancoDAO.getLR().removerLivro(livro);
+    return bancoDAO.getLR().removerLivro(isbn);
   }
 
   public List<LivroDTO> listarLivros() {
-    Map<Livro, Integer> livros = cpLivros();
     List<LivroDTO> livrosDTO = new ArrayList<>();
-    for (Livro livro : livros.keySet()) {
-      livrosDTO.add(new LivroDTO(livro, livros.get(livro)));
+    for (Livro livro : cpLivros()) {
+      livrosDTO.add(new LivroDTO(livro, getLR().getDisponibilidadePorIsbn(livro.getIsbn())));
     }
     return livrosDTO;
   }
 
   public List<LivroDTO> pesquisarLivro(String entrada, FiltroLivro filtroLivro) {
-    Map<Livro, Integer> livros = cpLivros();
     List<LivroDTO> livrosEncotrados = new ArrayList<>();
     boolean encontrou = false;
-    for (Livro livro : livros.keySet()) {
+    for (Livro livro : cpLivros()) {
       switch (filtroLivro) {
         case POR_TITULO -> {
           if (Tratamento.contemSubString(livro.getTitulo(), entrada)) {
@@ -72,10 +71,14 @@ public class OperacoesLivro {
         }
       }
       if (encontrou) {
-        livrosEncotrados.add(new LivroDTO(livro, livros.get(livro)));
+        livrosEncotrados.add(new LivroDTO(livro, getLR().getDisponibilidadePorIsbn(livro.getIsbn())));
         encontrou = false;
       }
     }
     return livrosEncotrados;
+  }
+
+  public LivroDTO buscarLivroPorIsbn(String isbn) {
+    return new LivroDTO(getLR().getLivroPorIsbn(isbn), getLR().getDisponibilidadePorIsbn(isbn));
   }
 }

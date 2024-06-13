@@ -1,6 +1,8 @@
 package modelo;
 
-public class Credencias {
+import java.io.Serializable;
+
+public class Credencias implements Serializable {
   private String login;
   private String senha;
 

@@ -1,11 +1,13 @@
 package modelo;
 
 import dto.UsuarioDTO;
+import util.Tratamento;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public abstract class Usuario {
+public abstract class Usuario implements Serializable {
   private String nome;
   private String cpf;
   private String matricula;
@@ -30,7 +32,7 @@ public abstract class Usuario {
     this.nome = usuarioDTO.getNome();
     this.cpf = usuarioDTO.getCpf();
     this.matricula = usuarioDTO.getMatricula();
-    this.dataNascimento = LocalDate.parse(usuarioDTO.getDataNascimento(), usuarioDTO.getFormato());
+    this.dataNascimento = Tratamento.stringParaData(usuarioDTO.getDataNascimento());
   }
 
 
