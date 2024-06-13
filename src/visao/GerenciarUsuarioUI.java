@@ -8,7 +8,6 @@ import dto.ProfessorDTO;
 import util.Impressao;
 import util.Leitura;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GerenciarUsuarioUI {
