@@ -5,7 +5,6 @@ import dto.LivroDTO;
 import modelo.Livro;
 import repositorio.EmprestimoRepositorio;
 import repositorio.LivroRepositorio;
-import repositorio.UsuarioRepositorio;
 import util.FiltroLivro;
 import util.Tratamento;
 
@@ -41,7 +40,7 @@ public class OperacoesLivro {
   }
 
   public boolean removerLivroPorIsbn(String isbn) {
-    if (getER().getNumEmprestimosIsbn(isbn) > 0) {
+    if (getER().getNumEmprestimoPorIsbn(isbn) > 0) {
       return false;
     }
     return getLR().removerLivro(isbn);
@@ -100,7 +99,7 @@ public class OperacoesLivro {
 
   private int calcularDisponibilidade(Livro livro) {
     try {
-      return livro.getEstoque() - getER().getNumEmprestimosIsbn(livro.getIsbn());
+      return livro.getEstoque() - getER().getNumEmprestimoPorIsbn(livro.getIsbn());
     } catch (Exception e) {
       return 0;
     }

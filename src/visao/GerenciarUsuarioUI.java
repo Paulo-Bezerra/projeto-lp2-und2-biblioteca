@@ -1,5 +1,6 @@
 package visao;
 
+import controlador.ControladorEmprestimo;
 import controlador.ControladorUsuario;
 import dto.BibliotecarioDTO;
 import dto.EstudanteDTO;
@@ -7,10 +8,12 @@ import dto.ProfessorDTO;
 import util.Impressao;
 import util.Leitura;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GerenciarUsuarioUI {
   private final ControladorUsuario cUsuario = new ControladorUsuario();
+  private final ControladorEmprestimo cEmprestimo = new ControladorEmprestimo();
 
   public void gerenciarUsuario() {
     int opcao = 0;
@@ -155,15 +158,54 @@ public class GerenciarUsuarioUI {
     do {
       opcao = MenuUI.consultarUsuario();
       switch (opcao) {
-        case 1: //Listar todos os usuários.
+        case 1:
           listarUsuarios();
           break;
         case 2:
           buscarUsuario();
           break;
+        case 3:
+          verificarUsuario();
+          break;
+        case 4:
+          emprestimosUsuario();
+          break;
       }
     } while (opcao != 5);
 
+  }
+
+  private void verificarUsuario() {
+    String matricula = Leitura.leStr("Informe a matrícula para verificar: ");
+    if (!cUsuario.existeUsuario(matricula)) {
+      System.out.println("Usuário não cadastrado.");
+      return;
+    }
+    if (cUsuario.usuarioEmAtraso(matricula)) {
+      System.out.println("Usuário em atraso.");
+      System.out.println("Atraso(s) do usuário:");
+      Impressao.imprimirLista(cEmprestimo.getEmprestimosAtrasados());
+    }
+    int numEmprestimo = cUsuario.numEmprestimoDoUsuario(matricula);
+    if (numEmprestimo == 0) {
+      System.out.println("Não possui emprestimos.");
+    } else {
+      System.out.println("O usuário possui " + numEmprestimo + " emprestimos.");
+    }
+  }
+
+  private void emprestimosUsuario() {
+    String matricula = Leitura.leStr("Informe a matrícula para verificar: ");
+    if (!cUsuario.existeUsuario(matricula)) {
+      System.out.println("Usuário não cadastrado.");
+      return;
+    }
+    if (cUsuario.numEmprestimoDoUsuario(matricula) == 0) {
+      System.out.println("Não possui emprestimos.");
+      return;
+    }
+    System.out.println("Listando emprestimos:");
+    Impressao.imprimirLista(cEmprestimo.getEmprestimosPorMatricula(matricula));
   }
 
   private void listarUsuarios() {

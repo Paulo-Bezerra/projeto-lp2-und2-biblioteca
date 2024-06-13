@@ -74,11 +74,19 @@ public class Tratamento {
   }
 
   public static String dataParaString(LocalDate date) {
-    return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    try {
+      return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    } catch (DateTimeParseException e) {
+      return null;
+    }
   }
 
   public static LocalDate stringParaData(String data) {
-    return LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    try {
+      return LocalDate.parse(data, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    } catch (DateTimeParseException e) {
+      return null;
+    }
   }
 
   public static LocalDate somarDias(LocalDate data, int nDias) {
@@ -87,10 +95,10 @@ public class Tratamento {
 
   public static String somarDias(String data, int nDias) {
     try {
-      return dataParaString(stringParaData(data).plusDays(nDias));
-    } catch (DateTimeParseException e) {
+      LocalDate localDate = stringParaData(data).plusDays(nDias);
+      return dataParaString(localDate);
+    } catch (Exception e) {
       System.out.println("Erro ao converter data para string.");
-      e.printStackTrace();
       return null;
     }
   }

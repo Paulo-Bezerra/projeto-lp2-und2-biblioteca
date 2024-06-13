@@ -37,13 +37,13 @@ public class OperacoesEmprestimo {
     if (!getLR().existeLivro(emprestimoDTO.getIsbn())) {
       return false;
     }
-    int numEmprestimoLivro = getER().getNumEmprestimosIsbn(emprestimoDTO.getIsbn());
+    int numEmprestimoLivro = getER().getNumEmprestimoPorIsbn(emprestimoDTO.getIsbn());
     int numEstoqueLivro = getLR().getLivroPorIsbn(emprestimoDTO.getIsbn()).getEstoque();
     if (numEmprestimoLivro >= numEstoqueLivro) {
       return false;
     }
 
-    int numEmprestimoUsuario = getER().getNumEmprestimosPorMatricula(emprestimoDTO.getMatricula());
+    int numEmprestimoUsuario = getER().getNumEmprestimoPorMatricula(emprestimoDTO.getMatricula());
     switch (emprestimoDTO.getTipoUsuario()) {
       case TIPO_ESTUDANTE ->  {
         if (numEmprestimoUsuario >= 3) {
@@ -58,16 +58,6 @@ public class OperacoesEmprestimo {
     }
 
     return getER().adicionaEmprestimo(new Emprestimo(emprestimoDTO));
-  }
-
-  public boolean removerEmprestimo(String matricula, String isbn) {
-    if (!getUR().existeUsuario(matricula)) {
-      return false;
-    }
-    if (!getLR().existeLivro(isbn)) {
-      return false;
-    }
-    return getER().removerEmprestimo(matricula, isbn);
   }
 
   public EmprestimoDTO getEmprestimo(String matricula, String isbn) {
@@ -93,9 +83,27 @@ public class OperacoesEmprestimo {
   public ArrayList<EmprestimoDTO> getEmprestimosAtrasados() {
     ArrayList<EmprestimoDTO> emprestimos = new ArrayList<>();
     for (Emprestimo emprestimo : getER().getEmprestimos()) {
-      if (LocalDate.now().isBefore(emprestimo.getDataDevolucao())){
+      if (LocalDate.now().isAfter(emprestimo.getDataDevolucao())){
         emprestimos.add(new EmprestimoDTO(emprestimo));
       }
+    }
+    return emprestimos;
+  }
+
+  public ArrayList<EmprestimoDTO> getEmprestimosAtrasados(String matricula) {
+    ArrayList<EmprestimoDTO> emprestimos = new ArrayList<>();
+    for (Emprestimo emprestimo : getER().getEmprestimosPorMatricula(matricula)) {
+      if (LocalDate.now().isAfter(emprestimo.getDataDevolucao())){
+        emprestimos.add(new EmprestimoDTO(emprestimo));
+      }
+    }
+    return emprestimos;
+  }
+
+  public ArrayList<EmprestimoDTO> getEmprestimosPorMatricula(String matricula) {
+    ArrayList<EmprestimoDTO> emprestimos = new ArrayList<>();
+    for (Emprestimo emprestimo : getER().getEmprestimosPorMatricula(matricula)) {
+        emprestimos.add(new EmprestimoDTO(emprestimo));
     }
     return emprestimos;
   }

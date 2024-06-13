@@ -49,21 +49,25 @@ public class EmprestimoRepositorio implements Serializable {
   }
 
   public boolean removerEmprestimo(String matricula, String isbn) {
-    if (!existeEmprestimo(matricula, matricula)) {
+    if (!existeEmprestimo(matricula, isbn)) {
       return false;
     }
 
     Emprestimo emprestimo = new Emprestimo(getEmprestimo(matricula, isbn));
     mat_isbn_ER.remove(matricula + "-" + isbn);
 
-    matriculas_empretimos.get(matricula).remove(emprestimo);
-    if (getNumEmprestimosPorMatricula(matricula) == 0) {
-      matriculas_empretimos.remove(matricula);
+    if (matriculas_empretimos.containsKey(matricula)) {
+      matriculas_empretimos.get(matricula).remove(emprestimo);
+      if (getNumEmprestimoPorMatricula(matricula) == 0) {
+        matriculas_empretimos.remove(matricula);
+      }
     }
 
-    matriculas_empretimos.get(isbn).remove(emprestimo);
-    if (getNumEmprestimosPorMatricula(isbn) == 0) {
-      isbns_empretimos.remove(isbn);
+    if (isbns_empretimos.containsKey(isbn)) {
+      isbns_empretimos.get(isbn).remove(emprestimo);
+      if (getNumEmprestimoPorIsbn(isbn) == 0) {
+        isbns_empretimos.remove(isbn);
+      }
     }
 
     return true;
@@ -89,7 +93,7 @@ public class EmprestimoRepositorio implements Serializable {
     return mat_isbn_ER.containsKey(matricula + "-" + isbn);
   }
 
-  public int getNumEmprestimosPorMatricula(String matricula) {
+  public int getNumEmprestimoPorMatricula(String matricula) {
     try {
       return matriculas_empretimos.get(matricula).size();
     } catch (Exception e) {
@@ -97,7 +101,7 @@ public class EmprestimoRepositorio implements Serializable {
     }
   }
 
-  public int getNumEmprestimosIsbn(String isbn) {
+  public int getNumEmprestimoPorIsbn(String isbn) {
     try {
       return isbns_empretimos.get(isbn).size();
     } catch (Exception e) {

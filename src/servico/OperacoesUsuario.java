@@ -1,18 +1,13 @@
 package servico;
 
 import dao.BancoDAO;
-import dto.BibliotecarioDTO;
-import dto.EstudanteDTO;
-import dto.ProfessorDTO;
-import dto.UsuarioDTO;
-import modelo.Bibliotecario;
-import modelo.Estudante;
-import modelo.Professor;
-import modelo.Usuario;
+import dto.*;
+import modelo.*;
 import repositorio.EmprestimoRepositorio;
 import repositorio.UsuarioRepositorio;
 import util.Tratamento;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +40,7 @@ public class OperacoesUsuario {
   }
 
   public boolean removerUsuarioPorMatricula(String matricula) {
-    if (getER().getNumEmprestimosPorMatricula(matricula) > 0) {
+    if (getER().getNumEmprestimoPorMatricula(matricula) > 0) {
       return false;
     }
     return getUR().removerUsuario(matricula);
@@ -105,5 +100,21 @@ public class OperacoesUsuario {
         return null;
       }
     }
+  }
+
+  public boolean usarioEmAtraso(String matricula) {
+    if (getER().getNumEmprestimoPorMatricula(matricula) == 0) {
+      return false;
+    }
+    for (Emprestimo emprestimo : getER().getEmprestimosPorMatricula(matricula)) {
+      if (LocalDate.now().isAfter(emprestimo.getDataDevolucao())){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public int numEmprestimoDoUsuario(String matricula) {
+    return getER().getNumEmprestimoPorMatricula(matricula);
   }
 }

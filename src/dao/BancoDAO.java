@@ -87,7 +87,6 @@ public class BancoDAO {
     } catch (FileNotFoundException e) {
       System.out.println("Erro ao carregar um dos arquivos de dados.\n" +
           "(Ignore caso for o primeiro uso).");
-      System.out.println(e.getMessage());
       return false;
     } catch (ClassNotFoundException e) {
       System.out.println("Houve um erro ao copiar os dados dos arquivos para as classes.");

@@ -137,7 +137,7 @@ public class GerenciarEmprestimoUI {
     String matricula, isbn;
     matricula = Leitura.leStr("Informe a matricula: ");
     isbn = Leitura.leStr("Informe a ISBN: ");
-    if (cEmprestimo.existeEmprestimo(matricula, isbn)) {
+    if (!cEmprestimo.existeEmprestimo(matricula, isbn)) {
       System.out.println("Empréstimo não encontrado.");
       return;
     }

@@ -7,6 +7,7 @@ import dto.UsuarioDTO;
 import servico.OperacoesUsuario;
 import util.Tratamento;
 
+import java.lang.foreign.StructLayout;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -79,5 +80,35 @@ public class ControladorUsuario {
       return null;
     }
     return opUsuario.buscarUsuarioPorNome(nome);
+  }
+
+  public boolean existeUsuario(String matricula) {
+    if (matricula == null) {
+      return false;
+    }
+    if (!Tratamento.validarStrings()) {
+      return false;
+    }
+    return opUsuario.buscarUsuarioPorMatricula(matricula) != null;
+  }
+
+  public boolean usuarioEmAtraso(String matricula) {
+    if (matricula == null) {
+      return false;
+    }
+    if (!Tratamento.validarStrings()) {
+      return false;
+    }
+    return opUsuario.usarioEmAtraso(matricula);
+  }
+
+  public int numEmprestimoDoUsuario(String matricula) {
+    if (matricula == null) {
+      return 0;
+    }
+    if (!Tratamento.validarStrings()) {
+      return 0;
+    }
+    return opUsuario.numEmprestimoDoUsuario(matricula);
   }
 }
