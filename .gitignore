@@ -31,4 +31,4 @@ bin/
 .DS_Store
 
 ### Dados binários ###
-arquivo_er.bin
+*.bin
