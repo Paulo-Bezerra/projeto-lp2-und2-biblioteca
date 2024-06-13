@@ -1,0 +1,293 @@
+# Usuarios
+## Estudantes
+
+1
+Albert Einstein
+12345678901
+20240001
+14/03/1879
+Física
+1
+1
+Marie Curie
+12345678902
+20240002
+07/11/1867
+Química
+1
+1
+Isaac Newton
+12345678903
+20240003
+04/01/1643
+Matemática
+1
+1
+Charles Darwin
+12345678904
+20240004
+12/02/1809
+Biologia
+1
+1
+Ada Lovelace
+12345678905
+20240005
+10/12/1815
+Computação
+1
+1
+Nikola Tesla
+12345678906
+20240006
+10/07/1856
+Engenharia Elétrica
+1
+1
+Galileo Galilei
+12345678907
+20240007
+15/02/1564
+Astronomia
+1
+1
+Leonardo da Vinci
+12345678908
+20240008
+15/04/1452
+Arte e Engenharia
+1
+1
+Stephen Hawking
+12345678909
+20240009
+08/01/1942
+Cosmologia
+1
+1
+Rosalind Franklin
+12345678910
+20240010
+25/07/1920
+Biologia Molecular
+1
+
+## Professores
+
+2
+Sigmund Freud
+98765432101
+20240011
+06/05/1856
+Psicologia
+1
+2
+Jane Goodall
+98765432102
+20240012
+03/04/1934
+Biologia
+1
+2
+Noam Chomsky
+98765432103
+20240013
+07/12/1928
+Linguística
+1
+2
+Margaret Mead
+98765432104
+20240014
+16/12/1901
+Antropologia
+1
+2
+Richard Feynman
+98765432105
+20240015
+11/05/1918
+Física
+1
+2
+Carl Sagan
+98765432106
+20240016
+09/11/1934
+Astronomia
+1
+2
+Emmy Noether
+98765432107
+20240017
+23/03/1882
+Matemática
+1
+2
+WEB Du Bois
+98765432108
+20240018
+23/02/1868
+Sociologia
+1
+2
+James Watson
+98765432109
+20240019
+06/04/1928
+Genética
+1
+2
+Dorothy Hodgkin
+98765432110
+20240020
+12/05/1910
+Química
+1
+
+## Bibliotecário
+
+3
+Clarice Lispector
+98765432111
+20240021
+10/12/1920
+admin
+admin
+1
+
+# Livros
+
+1
+1984
+George Orwell
+Distopia
+935
+1949
+10
+1
+1
+Dom Casmurro
+Machado de Assis
+Literatura Brasileira
+403
+1899
+5
+1
+1
+Pride and Prejudice
+Jane Austen
+Romance
+563
+1813
+8
+1
+1
+To Kill a Mockingbird
+Harper Lee
+Ficção
+084
+1960
+7
+1
+1
+The Great Gatsby
+F. Scott Fitzgerald
+Ficção
+565
+1925
+12
+1
+1
+Moby Dick
+Herman Melville
+Aventura
+786
+1851
+4
+1
+1
+War and Peace
+Leo Tolstoy
+Histórico
+629
+1869
+6
+1
+1
+The Catcher in the Rye
+J.D. Salinger
+Ficção
+488
+1951
+9
+1
+1
+Brave New World
+Aldous Huxley
+Distopia
+524
+1932
+11
+1
+1
+One Hundred Years of Solitude
+Gabriel Garcia Marquez
+Realismo Mágico
+287
+1967
+10
+1
+
+# Empréstimos
+
+1
+20240001
+935
+01/06/2024
+1
+1
+20240002
+403
+02/06/2024
+1
+1
+20240003
+563
+03/06/2024
+1
+1
+20240004
+084
+04/06/2024
+1
+1
+20240005
+565
+05/06/2024
+1
+1
+20240006
+786
+06/06/2024
+1
+1
+20240007
+629
+07/06/2024
+1
+1
+20240008
+488
+08/06/2024
+1
+1
+20240009
+524
+09/06/2024
+1
+1
+20240010
+287
+10/06/2024
+1
