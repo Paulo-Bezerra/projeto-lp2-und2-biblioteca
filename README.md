@@ -2,10 +2,10 @@
 
 ## Sobre
 
-Projeto de um sistema gerenciador de biblioteca para unidade 2 da disciplina de Linguagem de Programação 2.
+Projeto de um sistema gerenciador de biblioteca para a Unidade 2 da disciplina de Linguagem de Programação 2.
 
 ## O que foi usado?
-Para realizar o projeto usei uma variação do modelo MVC (acredito ser algo do Spring) e confesso que ainda estou me acostumando com o MVC de forma geral. Segue a imagem explicativa do modelo utilizado:
+Para realizar o projeto, usei uma variação do modelo MVC (acredito ser algo do Spring) e confesso que ainda estou me acostumando com o MVC de forma geral. Segue a imagem explicativa do modelo utilizado:
 
 ![Modelo MVC utilizado](MODELO.jpg)
 
@@ -16,9 +16,9 @@ login: admin
 senha: admin
 ```
 
-## Inserssão de datas
+## Inserção de datas
 
-Ao usar o sistema pode inserir a data de usando o formato comum:
+Ao usar o sistema, pode inserir a data usando o formato comum:
 
 ```
 Exemplo: 26/06/2024
@@ -74,4 +74,4 @@ Segue abaixo o mapa de menus para melhor localização das funções da aplicaç
 
 ## Obrigado pela atenção!
 
-Espero que tenha um ótima experiência de uso!🥹
+Espero que tenha uma ótima experiência de uso!🥹
